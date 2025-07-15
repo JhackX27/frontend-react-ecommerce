@@ -7,7 +7,7 @@ export const Login = () => {
     <div className="container mx-auto w-xl bg-white p-8 rounded-2xl shadow-lg">
       {/* Header Titles */}
       <div className="flex justify-center mb-4">
-        <h2 className="text-3xl font-semibold text-center">
+        <h2 className="font-Primary-Poppins text-3xl font-semibold text-center">
           {isLoginMode ? "Login" : "Register"}
         </h2>
       </div>
@@ -16,7 +16,7 @@ export const Login = () => {
       <div className="relative flex h-12 mb-6 border border-zinc-300 rounded-full overflow-hidden">
         <button
           onClick={() => setIsLoginMode(true)}
-          className={`w-1/2 text-lg font-medium transition-all z-10 ${
+          className={`w-1/2 font-Secondary-Gidole text-lg font-medium transition-all z-10 ${
             isLoginMode ? "text-white" : "text-black"
           }`}
         >
@@ -24,7 +24,7 @@ export const Login = () => {
         </button>
         <button
           onClick={() => setIsLoginMode(false)}
-          className={`w-1/2 text-lg font-medium transition-all z-10 ${
+          className={`w-1/2 font-Secondary-Gidole text-lg font-medium transition-all z-10 ${
             !isLoginMode ? "text-white" : "text-black"
           }`}
         >
@@ -42,62 +42,87 @@ export const Login = () => {
       <form action="space-y-4">
         {/* Signup-only Field */}
         {!isLoginMode && (
-          <input
-            type="text"
-            placeholder="Name"
-            required
-            className="w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
-          />
+          <>
+            <input
+              type="text"
+              placeholder="Name"
+              required
+              className="font-Tertiary-Inter w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
+            />
+
+            <input
+              type="text"
+              placeholder="Phone"
+              required
+              className="font-Tertiary-Inter w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
+            />
+
+            <input
+              type="text"
+              placeholder="Email"
+              required
+              className="font-Tertiary-Inter w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
+            />
+
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              className="font-Tertiary-Inter w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
+            />
+
+            <input
+              type="text"
+              placeholder="Confirm Password"
+              required
+              className="font-Tertiary-Inter w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
+            />
+
+            <button className="font-Tertiary-Inter w-full p-3 bg-gradient-to-r from-blue-700 via-cyan-600 to-cyan-200 text-white rounded-full text-lg font-medium hover:opacity-90 transition">
+              Sign Up
+            </button>
+          </>
         )}
 
-        {/* Shared input field*/}
-
-        <input
-          type="text"
-          placeholder="Email"
-          required
-          className="w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          className="w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
-        />
-
-        {/* Signup field*/}
-
-        {!isLoginMode && (
-          <input
-            type="text"
-            placeholder="Confirm Password"
-            required
-            className="w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
-          />
-        )}
-
-        {/* Forget password for login */}
+        {/* Login-only Field */}
         {isLoginMode && (
-          <div className="text-right">
-            <p className="text-cyan-600 hover:underline">Forget Password</p>
-          </div>
-        )}
+          <>
+            <input
+              type="text"
+              placeholder="Email"
+              required
+              className="font-Tertiary-Inter w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
+            />
 
-        {/* Shared button */}
-        <button className="w-full p-3 bg-gradient-to-r from-blue-700 via-cyan-600 to-cyan-200 text-white rounded-full text-lg font-medium hover:opacity-90 transition">
-          {isLoginMode ? "Login" : "Signup"}
-        </button>
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              className="font-Tertiary-Inter w-full p-3 border-b-2 border-gray-300 outline-none focus:border-cyan-500 placeholder-gray-400"
+            />
+
+            <div className="text-right">
+              <p className="font-Tertiary-Inter text-cyan-600 hover:underline cursor-pointer">
+                Forget Password
+              </p>
+            </div>
+
+            <button className="font-Tertiary-Inter w-full p-3 bg-gradient-to-r from-blue-700 via-cyan-600 to-cyan-200 text-white rounded-full text-lg font-medium hover:opacity-90 transition">
+              Login
+            </button>
+          </>
+        )}
 
         {/* Switch link */}
-        <p className="text-center text-gray-600">
-          {isLoginMode ? "Din't have an account" : "Already have an account"}{" "}
+        <p className="font-Tertiary-Inter text-center text-gray-600">
+          {isLoginMode ? "Din't have an account " : "Already have an account "}
           <a
             href="#"
             onClick={(e) => {
               e.preventDefault();
               setIsLoginMode(!isLoginMode);
             }}
-            className="text-cyan-600 hover:underline"
+            className="font-Tertiary-Inter text-cyan-600 hover:underline"
           >
             {isLoginMode ? "Sign Up" : "Login"}
           </a>

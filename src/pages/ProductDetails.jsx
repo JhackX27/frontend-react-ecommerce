@@ -2,6 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice.js";
+import { Footer } from "../assets/components/Footer";
+import { Breadcrumb } from "../assets/components/Breadcrumb";
 
 export const ProductDetails = () => {
   const { id } = useParams();
@@ -28,54 +30,98 @@ export const ProductDetails = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div>
-        <Link
-          to="/"
-          className="font-Tertiary-Inter mb-8 inline-block"
+    <div>
+      <div
+        className="/*propiedades moviles*/
+       px-4 py-8 pt-[184px] bg-secondary-light
+      
+      /*propiedades tablet*/
+      max-iphone:pt-[72px]
+
+      /*propiedades pc*/
+      max-tablet:w-full
+      "
+      >
+        <Breadcrumb
+          items={[
+            { label: "Home", to: "/" },
+            { label: "Product", to: `/product/${product.id}` },
+          ]}
+        />
+        <div
+          className="flex flex-col items-center gap-2 py-4
+          max-iphone:flex-col "
         >
-          Back to Home
-        </Link>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div className="shadow-md p-4 rounded w-full overflow-hidden h-[300px] sm:h-[400px] md:h-[600px]">
-          <img
-            className="mx-auto h-full object-cover"
-            src={product.image}
-            alt={product.title}
-          />
-        </div>
-        <div>
-          <h1 className="font-Primary-Poppins text-3xl font-bold mb-4">
-            {product.title}
-          </h1>
-          <p className="text-gray-600 mb-6">{product.description}</p>
-          <div className="mb-6">
-            <span className="font-Tertiary-Inter text-3xl font-medium">
-              ${product.price}
-            </span>
+          <div className="">
+            <h1
+              className="font-Primary-Poppins text-primary-dark text-3xl font-bold text-center mb-2
+            "
+            >
+              {product.title}
+            </h1>
           </div>
-          <div className="mb-6">
-            <h3 className="font-Secondary-Gidole font-semibold mb-2">
-              Category
-            </h3>
-            <span className="font-Tertiary-Inter inline-block bg-gray-200 rounded-full px-3 py-1 text-sm">
-              {product.category}
-            </span>
-          </div>
-          <button
-            className="font-Tertiary-Inter w-full md:w-auto bg-zinc-200 
-                    px-8 py-3 rounded-md flex items-center justify-center
-                    gap-2 hover:bg-zinc-300"
-            onClick={() => {
-              dispatch(addToCart(product));
-            }}
+          <div
+            className="flex flex-col items-center gap-4 
+          max-iphone:flex-col
+          max-tablet:flex-row"
           >
-            <ShoppingCart />
-            Add to Cart
-          </button>
+            <div
+              className="w-full overflow-hidden
+          
+          max-tablet:w-1/2 "
+            >
+              <div
+                className="
+              max-tablet:w-[460px] max-tablet:aspect-square"
+              >
+                <img
+                  className="mx-auto h-full object-cover rounded-md"
+                  src={product.image}
+                  alt={product.title}
+                />
+              </div>
+            </div>
+
+            <div className="max-tablet:w-1/2 ">
+              <div
+                className="shadow-md bg-secondary-accent p-4 rounded-md
+              max-laptop:w-[460px] max-laptop:aspect-square "
+              >
+                <p className="font-Tertiary-Inter text-secondary-dark mb-6">
+                  {product.description}
+                </p>
+                <div className="mb-6">
+                  <span className="font-Tertiary-Inter text-primary-dark text-3xl font-medium">
+                    ${product.price}
+                  </span>
+                </div>
+                <div className="mb-6">
+                  <h3 className="font-Secondary-Gidole text-primary-dark font-semibold mb-2">
+                    Category
+                  </h3>
+                  <span className="font-Tertiary-Inter bg-primary-accent text-secondary-accent inline-block rounded-full px-3 py-1 text-sm">
+                    {product.category}
+                  </span>
+                </div>
+                <button
+                  className="font-Tertiary-Inter w-full bg-primary-light text-secondary-accent 
+                    px-8 py-3 rounded-md flex items-center justify-center
+                    gap-2 hover:bg-primary-accent hover:scale-105 transition-all ease-in
+                    max-iphone:w-auto"
+                  onClick={() => {
+                    dispatch(addToCart(product));
+                  }}
+                >
+                  <ShoppingCart />
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

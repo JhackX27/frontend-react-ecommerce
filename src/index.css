@@ -18,6 +18,9 @@
   --color-state-warning: #f59e0b;
   --color-state-danger: #ef4444;
   --color-state-info: #3b82f6;
+  --breakpoint-max-iphone: 575px;
+  --breakpoint-max-tablet: 768px;
+  --breakpoint-max-laptop: 974px;
 }
 
 p {
@@ -27,5 +30,4 @@ p {
 .bg {
   background: url("https://placecats.com/600/200");
   background-size: cover;
-  height: 70vh;
 }

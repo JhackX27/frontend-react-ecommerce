@@ -1,4 +1,18 @@
-# Guía de Estilos Tailwind - [Nombre del Proyecto]
+# Guía de Estilos Tailwind - Ecommerce
+
+## Fondo Home
+
+- Color: `bg-secondary-light`
+
+## Categorías
+
+- Color: `bg-primary-accent`
+- Texto: `text-secondary-accent`
+- Hover: `hover:bg-primary-light`
+- Active: `active:scale-105`
+- Transición: `transition-all ease-in`
+- Cursor: `cursor-pointer`
+- Estado: `active:scale-105`
 
 ## Paleta de colores
 
