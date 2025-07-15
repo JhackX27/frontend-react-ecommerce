@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;...&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gidole&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-Primary-Poppins: Poppins, sans-serif;
+  --font-Secondary-Gidole: Gidole, sans-serif;
+  --font-Tertiary-Inter: Inter, sans-serif;
+  --color-primary-light: #6b46c1;
+  --color-primary-accent: #f59e0b;
+  --color-primary-dark: #1f2937;
+  --color-secondary-light: #ddd6fe;
+  --color-secondary-accent: #ffffff;
+  --color-secondary-dark: #6b7280;
+  --color-state-success: #10b981;
+  --color-state-warning: #f59e0b;
+  --color-state-danger: #ef4444;
+  --color-state-info: #3b82f6;
+  --breakpoint-max-iphone: 575px;
+  --breakpoint-max-tablet: 768px;
+  --breakpoint-max-laptop: 974px;
+}
+
+p {
+  font-family: var(--font-Tertiary-Inter);
+}
+
+.bg {
+  background: url("https://placecats.com/600/200");
+  background-size: cover;
+}
