@@ -51,8 +51,8 @@ export const NavBar = () => {
             /*propiedades moviles*/
             flex flex-items-center w-full justify-center
 
-            /*propiedades tablet pc*/
-            max-iphone:w-auto max-iphone:flex max-iphone:items-center
+            /*propiedades mayor iphone*/
+            max-iphone:w-1/4 max-iphone:flex max-iphone:items-center
             
             "
             >
@@ -61,7 +61,7 @@ export const NavBar = () => {
                 className="py-2"
               >
                 <img
-                  src="https://placecats.com/100/30"
+                  src="https://placecats.com/150/60"
                   alt="Logo"
                   className="h-10 object-cover rounded-md"
                 />
@@ -73,7 +73,7 @@ export const NavBar = () => {
             /*propiedades moviles*/
             w-5/6 flex justify-between p-2
             /*propiedades tablet pc*/
-            max-iphone:w-auto max-iphone:justify-center max-iphone:gap-2 max-iphone:items-center max-iphone:px-5 max-iphone:py-4
+            max-iphone:w-2/4 max-iphone:justify-center max-iphone:gap-2 max-iphone:items-center max-iphone:px-5 max-iphone:py-4
             "
             >
               <li>
@@ -149,7 +149,7 @@ export const NavBar = () => {
               className="flex flex-column gap-2 items-center
             
             /*propiedades tablet pc*/
-            max-iphone:w-auto
+            max-iphone:w-1/4 justify-center
             "
             >
               <Link

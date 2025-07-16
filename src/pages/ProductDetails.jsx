@@ -15,25 +15,31 @@ export const ProductDetails = () => {
 
   if (!product) {
     return (
-      <div className="min-h-[calc(100vh-176px)] flex items-center justify-center container mx-auto px-4 py-8">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Product not found</h2>
+      <div>
+        <div className="h-screen w-full flex flex-col gap-3 justify-center items-center bg-secondary-light">
+          <h2 className="font-Primary-Poppins text-primary-dark text-3xl font-bold">
+            Product not found
+          </h2>
           <Link
             to="/"
-            className="font-Tertiary-Inter inline-block bg-zinc-200 px-6 py-2 rounded-lg hover:bg-zinc-300"
+            className="font-Tertiary-Inter w-full bg-primary-light text-secondary-accent 
+                    px-8 py-3 rounded-md flex items-center justify-center
+                    gap-2 hover:bg-primary-accent hover:scale-105 transition-all ease-in
+                    max-iphone:w-auto"
           >
             Back to Home
           </Link>
         </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <div
         className="/*propiedades moviles*/
-       px-4 py-8 pt-[184px] bg-secondary-light
+       flex-1 px-4 py-8 pt-[184px] bg-secondary-light
       
       /*propiedades tablet*/
       max-iphone:pt-[72px]
