@@ -24,7 +24,7 @@ export const ProductCart = ({ id, title, price, description, image }) => {
         </div>
       </div>
       <div className="p-4 border-t-2 border-primary-light border-">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center ">
           <p className="text-xl font-medium">${price}</p>
           <button
             onClick={() => navigate(`/product/${id}`)}
@@ -32,7 +32,7 @@ export const ProductCart = ({ id, title, price, description, image }) => {
             bg-primary-light text-secondary-accent rounded-md p-2
             hover:scale-105 hover:bg-primary-accent transition-all ease-in"
           >
-            Ver detalles
+            View details
           </button>
         </div>
       </div>

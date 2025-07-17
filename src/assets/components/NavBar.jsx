@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { User, ShoppingCart, ArrowUp } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,12 +10,34 @@ export const NavBar = () => {
   const dispatch = useDispatch();
   const searchTerm = useSelector((state) => state.product.searchTerm);
 
+  // Ref para el menú desplegable
+  const menuRef = useRef(null);
+
   //Cart
   const cartItems = useSelector((state) => state.cart.items);
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const handleUser = () => {
     setIsOpen(!isOpen);
   };
+
+  // Cerrar menú cuando se hace clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    // Solo agregar el listener si el menú está abierto
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    // Cleanup del event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   //Links Path
   const location = useLocation();
@@ -130,21 +152,6 @@ export const NavBar = () => {
               </li>
             </ul>
 
-            <ul
-              className={`${
-                isOpen
-                  ? "flex flex-col absolute right-0 md:right-0 top-12 z-10 bg-zinc-50 p-4 gap-4"
-                  : "hidden"
-              }`}
-            >
-              <li>
-                <Link to="/login">Sign</Link>
-              </li>
-              <li>
-                <Link to="">My Account</Link>
-              </li>
-            </ul>
-
             <div
               className="flex flex-column gap-2 items-center
             
@@ -171,12 +178,32 @@ export const NavBar = () => {
                   </span>
                 )}
               </Link>
-
-              <User
-                size="40"
-                className="bg-primary-light text-secondary-light cursor-pointer rounded p-2 transition duration-150 ease-in hover:bg-secondary-light hover:text-primary-dark"
-                onClick={handleUser}
-              />
+              <div
+                className="relative"
+                ref={menuRef}
+              >
+                <User
+                  size="40"
+                  className="bg-primary-light text-secondary-light cursor-pointer rounded p-2 transition duration-150 ease-in hover:bg-secondary-light hover:text-primary-dark"
+                  onClick={handleUser}
+                />
+                <div>
+                  <ul
+                    className={`${
+                      isOpen
+                        ? "flex flex-col font-Tertiary-Inter text-sm absolute right-0 md:right-0 top-12 z-10 bg-primary-light p-1 w-40 rounded-md text-center gap"
+                        : "hidden"
+                    }`}
+                  >
+                    <li className="hover:bg-secondary-light hover:text-primary-dark text-secondary-light px-4 py-1 rounded-md hover:cursor-pointer">
+                      <Link to="/login">Sign</Link>
+                    </li>
+                    <li className="hover:bg-secondary-light hover:text-primary-dark text-secondary-light px-4 py-1 rounded-md hover:cursor-pointer">
+                      <Link to="">My Account</Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </nav>
           {/* buscador 

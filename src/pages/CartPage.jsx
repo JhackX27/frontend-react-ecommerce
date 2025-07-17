@@ -1,17 +1,28 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Plus, Minus, Trash } from "lucide-react";
 import { removeFromCart, updateQuantity } from "../features/cart/cartSlice";
 import { Footer } from "../assets/components/Footer";
+import { CheckoutModal } from "../assets/components/CheckoutModal";
 
 export const CartPage = () => {
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items);
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
 
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+
+  const handleOpenCheckout = () => {
+    setIsCheckoutModalOpen(true);
+  };
+
+  const handleCloseCheckout = () => {
+    setIsCheckoutModalOpen(false);
+  };
 
   if (cartItems.length === 0) {
     return (
@@ -25,7 +36,7 @@ export const CartPage = () => {
           </p>
           <Link
             to="/"
-            className="font-Tertiary-Inter w-full bg-primary-light text-secondary-accent 
+            className="font-Tertiary-Inter bg-primary-light text-secondary-accent 
                     px-8 py-3 rounded-md flex items-center justify-center
                     gap-2 hover:bg-primary-accent hover:scale-105 transition-all ease-in
                     max-iphone:w-auto"
@@ -150,6 +161,7 @@ export const CartPage = () => {
                 </div>
               </div>
               <button
+                onClick={handleOpenCheckout}
                 className="font-Tertiary-Inter w-full bg-primary-light text-secondary-accent 
                     px-8 py-3 rounded-md flex items-center justify-center
                     gap-2 hover:bg-primary-accent hover:scale-105 transition-all ease-in"
@@ -161,6 +173,14 @@ export const CartPage = () => {
         </div>
       </div>
       <Footer />
+
+      {/* Modal de Checkout */}
+      <CheckoutModal
+        isOpen={isCheckoutModalOpen}
+        onClose={handleCloseCheckout}
+        cartItems={cartItems}
+        total={total}
+      />
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 export const ProductGrid = () => {
   const products = useSelector((state) => state.product.filteredItems);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12; // Productos por página
+  const itemsPerPage = 6; // Productos por página
 
   // Calcular productos para la página actual
   const paginatedProducts = useMemo(() => {

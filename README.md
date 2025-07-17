@@ -252,3 +252,375 @@ export const api = {
     }),
 };
 ```
+
+## 📝 **Ejemplos de datos JSON para endpoints POST**
+
+### 👤 **POST /api/auth/register - Registro de Usuario**
+
+```json
+{
+  "name": "Juan Pérez",
+  "email": "juan.perez@email.com",
+  "password": "MiPassword123!",
+  "confirmPassword": "MiPassword123!",
+  "phone": "+51987654321",
+  "dateOfBirth": "1990-05-15",
+  "gender": "male",
+  "acceptTerms": true
+}
+```
+
+**Campos recomendados:**
+
+- `name` (string, requerido): Nombre completo
+- `email` (string, requerido, único): Email válido
+- `password` (string, requerido): Mínimo 8 caracteres, mayúscula, número, símbolo
+- `confirmPassword` (string, requerido): Debe coincidir con password
+- `phone` (string, opcional): Formato internacional
+- `dateOfBirth` (date, opcional): Para ofertas por edad
+- `gender` (enum, opcional): "male", "female", "other", "prefer_not_to_say"
+- `acceptTerms` (boolean, requerido): Aceptación de términos
+
+### 👤 **POST /api/auth/login - Inicio de Sesión**
+
+```json
+{
+  "email": "juan.perez@email.com",
+  "password": "MiPassword123!",
+  "rememberMe": true
+}
+```
+
+### 📦 **POST /api/products - Crear Producto (Admin)**
+
+```json
+{
+  "title": "NVIDIA GeForce RTX 4080",
+  "description": "Tarjeta gráfica de alta gama para gaming y creación de contenido",
+  "price": 1199.99,
+  "comparePrice": 1399.99,
+  "category": "graphics-cards",
+  "brand": "NVIDIA",
+  "model": "RTX 4080",
+  "sku": "NV-RTX4080-16GB",
+  "stock": 25,
+  "images": [
+    "https://example.com/rtx4080-1.jpg",
+    "https://example.com/rtx4080-2.jpg"
+  ],
+  "specifications": {
+    "memory": "16GB GDDR6X",
+    "coreClock": "2205 MHz",
+    "memoryClock": "22.4 Gbps",
+    "interface": "PCIe 4.0 x16"
+  },
+  "dimensions": {
+    "length": 304,
+    "width": 137,
+    "height": 61
+  },
+  "weight": 1.29,
+  "warranty": 36,
+  "featured": true,
+  "status": "active",
+  "seoTitle": "NVIDIA RTX 4080 - Tarjeta Gráfica Gaming",
+  "seoDescription": "Compra la NVIDIA RTX 4080 con 16GB GDDR6X",
+  "tags": ["gaming", "4k", "ray-tracing", "dlss"]
+}
+```
+
+**Campos recomendados:**
+
+- `title` (string, requerido): Nombre del producto
+- `description` (text, requerido): Descripción detallada
+- `price` (decimal, requerido): Precio actual
+- `comparePrice` (decimal, opcional): Precio antes de descuento
+- `category` (string, requerido): ID o slug de categoría
+- `brand` (string, requerido): Marca del producto
+- `sku` (string, requerido, único): Código único del producto
+- `stock` (integer, requerido): Cantidad disponible
+- `images` (array, requerido): URLs de imágenes
+- `specifications` (object, opcional): Especificaciones técnicas
+- `featured` (boolean): Si es producto destacado
+- `status` (enum): "active", "inactive", "draft"
+
+### 🛒 **POST /api/cart/items - Agregar al Carrito**
+
+```json
+{
+  "productId": "64f8a1b2c3d4e5f6a7b8c9d0",
+  "quantity": 2,
+  "selectedVariant": {
+    "color": "black",
+    "size": "large"
+  },
+  "notes": "Entrega urgente"
+}
+```
+
+### 📋 **POST /api/orders - Crear Orden**
+
+```json
+{
+  "items": [
+    {
+      "productId": "64f8a1b2c3d4e5f6a7b8c9d0",
+      "quantity": 1,
+      "price": 1199.99,
+      "variant": {
+        "color": "black"
+      }
+    }
+  ],
+  "shippingAddress": {
+    "firstName": "Juan",
+    "lastName": "Pérez",
+    "company": "Tech Solutions SAC",
+    "address1": "Av. Javier Prado 123",
+    "address2": "Dpto 401",
+    "city": "Lima",
+    "state": "Lima",
+    "zipCode": "15036",
+    "country": "PE",
+    "phone": "+51987654321"
+  },
+  "billingAddress": {
+    "firstName": "Juan",
+    "lastName": "Pérez",
+    "company": "Tech Solutions SAC",
+    "address1": "Av. Javier Prado 123",
+    "city": "Lima",
+    "state": "Lima",
+    "zipCode": "15036",
+    "country": "PE",
+    "phone": "+51987654321",
+    "taxId": "20123456789"
+  },
+  "shipping": {
+    "method": "standard",
+    "cost": 15.0,
+    "estimatedDays": 3
+  },
+  "payment": {
+    "method": "mercado_pago",
+    "preferenceId": "123456789-abcd-efgh"
+  },
+  "couponCode": "DESCUENTO10",
+  "notes": "Entregar en horario de oficina",
+  "subtotal": 1199.99,
+  "shippingCost": 15.0,
+  "tax": 215.99,
+  "discount": 120.0,
+  "total": 1310.98
+}
+```
+
+**Campos recomendados:**
+
+- `items` (array, requerido): Productos de la orden
+- `shippingAddress` (object, requerido): Dirección de envío
+- `billingAddress` (object, requerido): Dirección de facturación
+- `shipping` (object, requerido): Método y costo de envío
+- `payment` (object, requerido): Información de pago
+- `subtotal`, `total` (decimal, requerido): Cálculos de precio
+
+### 💳 **POST /api/payments/create-preference - Crear Pago**
+
+```json
+{
+  "orderId": "64f8a1b2c3d4e5f6a7b8c9d0",
+  "items": [
+    {
+      "title": "NVIDIA GeForce RTX 4080",
+      "description": "Tarjeta gráfica gaming",
+      "quantity": 1,
+      "unit_price": 1199.99,
+      "currency_id": "PEN"
+    }
+  ],
+  "payer": {
+    "name": "Juan",
+    "surname": "Pérez",
+    "email": "juan.perez@email.com",
+    "phone": {
+      "area_code": "51",
+      "number": "987654321"
+    },
+    "address": {
+      "street_name": "Av. Javier Prado",
+      "street_number": 123,
+      "zip_code": "15036"
+    }
+  },
+  "back_urls": {
+    "success": "https://mitienda.com/payment/success",
+    "failure": "https://mitienda.com/payment/failure",
+    "pending": "https://mitienda.com/payment/pending"
+  },
+  "auto_return": "approved",
+  "external_reference": "ORDER-001-2024",
+  "notification_url": "https://mitienda.com/api/payments/webhook"
+}
+```
+
+### 📍 **POST /api/addresses - Crear Dirección**
+
+```json
+{
+  "type": "shipping",
+  "firstName": "Juan",
+  "lastName": "Pérez",
+  "company": "Tech Solutions SAC",
+  "address1": "Av. Javier Prado 123",
+  "address2": "Dpto 401",
+  "city": "Lima",
+  "state": "Lima",
+  "zipCode": "15036",
+  "country": "PE",
+  "phone": "+51987654321",
+  "isDefault": true,
+  "instructions": "Tocar timbre del dpto 401"
+}
+```
+
+**Campos recomendados:**
+
+- `type` (enum): "shipping", "billing", "both"
+- `firstName`, `lastName` (string, requerido): Nombres
+- `address1` (string, requerido): Dirección principal
+- `address2` (string, opcional): Departamento, piso, etc.
+- `city`, `state`, `country` (string, requerido): Ubicación
+- `zipCode` (string, requerido): Código postal
+- `phone` (string, requerido): Teléfono de contacto
+- `isDefault` (boolean): Si es dirección predeterminada
+
+### 🎫 **POST /api/coupons - Crear Cupón (Admin)**
+
+```json
+{
+  "code": "DESCUENTO10",
+  "name": "Descuento 10% Black Friday",
+  "description": "10% de descuento en toda la tienda",
+  "type": "percentage",
+  "value": 10,
+  "minimumAmount": 100.0,
+  "maximumDiscount": 200.0,
+  "usageLimit": 1000,
+  "usagePerCustomer": 1,
+  "startDate": "2024-11-25T00:00:00Z",
+  "endDate": "2024-11-30T23:59:59Z",
+  "applicableProducts": ["64f8a1b2c3d4e5f6a7b8c9d0"],
+  "applicableCategories": ["graphics-cards", "processors"],
+  "excludedProducts": [],
+  "status": "active",
+  "stackable": false
+}
+```
+
+**Campos recomendados:**
+
+- `code` (string, requerido, único): Código del cupón
+- `type` (enum, requerido): "percentage", "fixed_amount", "free_shipping"
+- `value` (decimal, requerido): Valor del descuento
+- `minimumAmount` (decimal, opcional): Compra mínima
+- `usageLimit` (integer, opcional): Límite total de usos
+- `startDate`, `endDate` (datetime): Período de validez
+- `status` (enum): "active", "inactive", "expired"
+
+### ⭐ **POST /api/reviews - Crear Reseña**
+
+```json
+{
+  "productId": "64f8a1b2c3d4e5f6a7b8c9d0",
+  "orderId": "64f8a1b2c3d4e5f6a7b8c9d1",
+  "rating": 5,
+  "title": "Excelente tarjeta gráfica",
+  "comment": "Muy buena calidad, funciona perfecto para gaming en 4K. La recomiendo totalmente.",
+  "pros": [
+    "Excelente rendimiento",
+    "Silenciosa",
+    "Buena relación calidad-precio"
+  ],
+  "cons": ["Un poco grande para algunos cases"],
+  "wouldRecommend": true,
+  "images": ["https://example.com/review-image-1.jpg"]
+}
+```
+
+**Campos recomendados:**
+
+- `productId` (string, requerido): ID del producto
+- `orderId` (string, requerido): ID de la orden (verificar compra)
+- `rating` (integer, requerido): Calificación 1-5
+- `title` (string, requerido): Título de la reseña
+- `comment` (text, requerido): Comentario detallado
+- `wouldRecommend` (boolean): Si recomendaría el producto
+
+### 🏷️ **POST /api/categories - Crear Categoría (Admin)**
+
+```json
+{
+  "name": "Tarjetas Gráficas",
+  "slug": "graphics-cards",
+  "description": "Tarjetas gráficas para gaming y trabajo profesional",
+  "parentId": null,
+  "image": "https://example.com/category-graphics.jpg",
+  "icon": "gpu",
+  "sortOrder": 1,
+  "isActive": true,
+  "seoTitle": "Tarjetas Gráficas - Gaming y Profesional",
+  "seoDescription": "Encuentra las mejores tarjetas gráficas para gaming",
+  "metaKeywords": ["gpu", "gaming", "nvidia", "amd"]
+}
+```
+
+## 🔐 **Consideraciones de Seguridad para POST**
+
+### **Validaciones Backend:**
+
+- **Sanitización**: Limpiar todos los inputs
+- **Validación de tipos**: Verificar tipos de datos
+- **Límites de longitud**: Máximo caracteres por campo
+- **Validación de email**: Formato válido y único
+- **Hash de passwords**: Usar bcrypt con salt
+- **Rate limiting**: Limitar requests por IP
+- **CSRF protection**: Tokens anti-CSRF
+- **SQL injection**: Usar prepared statements
+
+### **Validaciones Frontend:**
+
+- **Validación en tiempo real**: Feedback inmediato
+- **Confirmación de passwords**: Verificar coincidencia
+- **Formatos requeridos**: Email, teléfono, etc.
+- **Campos obligatorios**: Marcar con asterisco
+- **Límites de caracteres**: Mostrar contador
+- **Sanitización básica**: Trim espacios, etc.
+
+### **Respuestas de Error Estándar:**
+
+```json
+{
+  "success": false,
+  "message": "Validation failed",
+  "errors": {
+    "email": ["Email is required", "Email format is invalid"],
+    "password": ["Password must be at least 8 characters"]
+  },
+  "code": "VALIDATION_ERROR"
+}
+```
+
+### **Respuestas de Éxito Estándar:**
+
+```json
+{
+  "success": true,
+  "message": "User created successfully",
+  "data": {
+    "id": "64f8a1b2c3d4e5f6a7b8c9d0",
+    "email": "juan.perez@email.com",
+    "name": "Juan Pérez"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```

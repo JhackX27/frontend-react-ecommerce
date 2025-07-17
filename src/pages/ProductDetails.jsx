@@ -22,7 +22,7 @@ export const ProductDetails = () => {
           </h2>
           <Link
             to="/"
-            className="font-Tertiary-Inter w-full bg-primary-light text-secondary-accent 
+            className="font-Tertiary-Inter bg-primary-light text-secondary-accent 
                     px-8 py-3 rounded-md flex items-center justify-center
                     gap-2 hover:bg-primary-accent hover:scale-105 transition-all ease-in
                     max-iphone:w-auto"

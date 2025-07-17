@@ -17,12 +17,12 @@ export const Pagination = ({
     const maxVisible = 5; // Máximo 5 números visibles
 
     if (totalPages <= maxVisible) {
-      // Si hay pocas páginas, mostrar todas
+      // Si hay 5 páginas o menos, mostrar todas sin puntos
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
       }
     } else {
-      // Lógica para páginas con puntos suspensivos
+      // Si hay más de 5 páginas, usar puntos suspensivos
       if (currentPage <= 3) {
         pages.push(1, 2, 3, 4, "...", totalPages);
       } else if (currentPage >= totalPages - 2) {

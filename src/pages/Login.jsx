@@ -10,6 +10,8 @@ export const Login = () => {
     name: "",
     phone: "",
     email: "",
+    gender: "",
+    dateOfBirth: "",
     password: "",
     confirmPassword: "",
   });
@@ -39,6 +41,8 @@ export const Login = () => {
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
+        gender: formData.gender,
+        dateOfBirth: formData.dateOfBirth,
         password: formData.password,
         confirmPassword: formData.confirmPassword,
       });
@@ -115,6 +119,36 @@ export const Login = () => {
                   name="phone"
                   placeholder="Phone"
                   value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  className="font-Tertiary-Inter w-full p-3 border-b-2 border-secondary-dark outline-none focus:border-primary-light placeholder-secondary-dark"
+                />
+                <select
+                  name="gender"
+                  id="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  required
+                  className="font-Tertiary-Inter w-full p-3 border-b-2 border-secondary-dark outline-none focus:border-primary-light placeholder-secondary-dark"
+                >
+                  <option
+                    value=""
+                    disabled
+                    className=""
+                  >
+                    Select gender
+                  </option>
+                  <option value="male">Masculine</option>
+                  <option value="female">Masculine</option>
+                  <option value="other">Other</option>
+                  <option value="prefer_not_to_say">I prefer not to say</option>
+                </select>
+
+                <input
+                  type="date"
+                  name="dateOfBirth"
+                  id="dateOfBirth"
+                  value={formData.dateOfBirth}
                   onChange={handleChange}
                   required
                   className="font-Tertiary-Inter w-full p-3 border-b-2 border-secondary-dark outline-none focus:border-primary-light placeholder-secondary-dark"
