@@ -1,9 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../features/cart/cartSlice.js";
-import { Footer } from "../assets/components/Footer";
-import { Breadcrumb } from "../assets/components/Breadcrumb";
+import { addToCart } from "../../features/cart/cartSlice.js";
+import { Footer } from "../../assets/components/layout/Footer.jsx";
+import { Breadcrumb } from "../../assets/components/Breadcrumb.jsx";
 
 export const ProductDetails = () => {
   const { id } = useParams();

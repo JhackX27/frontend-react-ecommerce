@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { User, ShoppingCart, ArrowUp } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSearchTerm } from "../../features/products/productSlice.js";
+import { setSearchTerm } from "../../../features/products/productSlice.js";
 
 export const NavBar = () => {
   //Search

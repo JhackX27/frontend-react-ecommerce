@@ -1,53 +1,79 @@
 import { useState } from "react";
-import { Footer } from "../assets/components/Footer";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { Footer } from "../../assets/components/layout/Footer";
+import { DEMO_USERS } from "../../utils/constants";
 
 export const Login = () => {
-  // Estado para alternar entre Login y Register
+  //estado para alternar entre Login y Register
   const [isLoginMode, setIsLoginMode] = useState(true);
 
-  // UN SOLO estado para TODOS los campos del formulario
+  //un solo estado para todos los campos del formulario
   const [formData, setFormData] = useState({
+    username: "",
+    password: "",
     name: "",
     phone: "",
     email: "",
     gender: "",
+    confirmPassword: "",
     dateOfBirth: "",
-    password: "",
     confirmPassword: "",
   });
 
-  // Función para manejar cambios en los inputs
+  const { login, loading, error, clearError } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  //ruta para dirigir despues del login
+  const from = location.state?.from?.pathname || "/";
+
+  //función para manejar cambios en los inputs
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+
+    //limpiar error al escribir
+    if (error) {
+      clearError();
+    }
   };
 
-  // UN SOLO handleSubmit para ambos casos
-  const handleSubmit = (e) => {
+  //un solo handlesubmit para ambos casos
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (isLoginMode) {
-      // Lógica de LOGIN - solo usa email y password
-      console.log("Haciendo LOGIN con:", {
-        email: formData.email,
-        password: formData.password,
-      });
-      // Aquí harías: fetch('/api/auth/login', { method: 'POST', body: ... })
+      //login
+      const result = await login(formData.username, formData.password);
+      if (result.success) {
+        navigate(from, { replace: true });
+      }
     } else {
-      // Lógica de REGISTER - usa todos los campos
-      console.log("Haciendo REGISTER con:", {
+      //register, simulacion
+      console.log("Haciendo REGISTER con: Dummy");
+      /*
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
         gender: formData.gender,
         dateOfBirth: formData.dateOfBirth,
         password: formData.password,
-        confirmPassword: formData.confirmPassword,
-      });
-      // Aquí harías: fetch('/api/auth/register', { method: 'POST', body: ... })
+        confirmPassword: formData.confirmPassword
+        */
     }
+  };
+
+  //usar usuarios de prueba
+  const useDemo = (userType) => {
+    const demoUser = DEMO_USERS[userType];
+    setFormData({
+      ...formData,
+      username: demoUser.username,
+      password: demoUser.password,
+    });
   };
 
   return (
@@ -64,14 +90,35 @@ export const Login = () => {
       "
       >
         <div className="bg-white mx-auto my-8 p-8 max-w-lg rounded-md shadow-lg">
-          {/* Header Titles */}
+          {/*header titles */}
           <div className="flex justify-center mb-4">
             <h2 className="font-Primary-Poppins text-3xl font-semibold text-center">
               {isLoginMode ? "Login" : "Register"}
             </h2>
           </div>
 
-          {/* Tab controls */}
+          {/*usuarios de prueba */}
+          <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+            <p className="text-sm text-blue-800 mb-2">Usuarios de prueba:</p>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => useDemo("ADMIN")}
+                className="text-xs bg-blue-600 text-white px-2 py-1 rounded"
+              >
+                Admin
+              </button>
+              <button
+                type="button"
+                onClick={() => useDemo("USER")}
+                className="text-xs bg-green-600 text-white px-2 py-1 rounded"
+              >
+                Usuario
+              </button>
+            </div>
+          </div>
+
+          {/*tab controls */}
           <div className="relative flex h-12 mb-6 bg-primary-light rounded-full overflow-hidden">
             <button
               onClick={() => setIsLoginMode(true)}
@@ -96,12 +143,19 @@ export const Login = () => {
             ></div>
           </div>
 
-          {/* UN SOLO FORMULARIO que cambia dinámicamente */}
+          {/*error Message */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+              {error}
+            </div>
+          )}
+
+          {/*form */}
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-4"
           >
-            {/* Campos que SOLO aparecen en Register */}
+            {/*campos que solo aparecen en Register */}
             {!isLoginMode && (
               <>
                 <input

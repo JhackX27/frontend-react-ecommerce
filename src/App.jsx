@@ -1,11 +1,11 @@
-import { Home } from "./pages/Home.jsx";
-import { ProductDetails } from "./pages/ProductDetails.jsx";
-import { CartPage } from "./pages/CartPage.jsx";
+import { Home } from "./pages/public/Home.jsx";
+import { ProductDetails } from "./pages/public/ProductDetails.jsx";
+import { CartPage } from "./pages/private/CartPage.jsx";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { NavBar } from "./assets/components/NavBar.jsx";
+import { NavBar } from "./assets/components/layout/NavBar.jsx";
 import { Provider } from "react-redux";
-import { store } from "./App/Store.js";
-import { Login } from "./pages/Login.jsx";
+import { store } from "./store/index.js";
+import { Login } from "./pages/public/Login.jsx";
 import { Ui } from "./pages/Ui.jsx";
 
 export const App = () => {

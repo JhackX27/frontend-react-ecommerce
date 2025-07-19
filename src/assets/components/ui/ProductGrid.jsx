@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
-import { ProductCart } from "./ProductCart";
-import { Pagination } from "./Pagination";
+import { ProductCart } from "../ProductCart";
+import { Pagination } from "../Pagination";
 import { useSelector } from "react-redux";
 
 export const ProductGrid = () => {
