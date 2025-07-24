@@ -1,7 +1,7 @@
 export const API_CONFIG = {
   BASE_URL:
     process.env.NODE_ENV === "production"
-      ? "https://polospersonalizadosecommerce.vercel.app"
+      ? "https://localhost/api"
       : "https://dummyjson.com",
 
   TIMEOUT: 10000,

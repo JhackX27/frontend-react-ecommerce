@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Plus, Minus, Trash } from "lucide-react";
 import { removeFromCart, updateQuantity } from "../../features/cart/cartSlice";
 import { Footer } from "../../assets/components/layout/Footer";
-import { CheckoutModal } from "../../assets/components/CheckoutModal";
+import { CheckoutModal } from "../../assets/components/ui/CheckoutModal";
 
 export const CartPage = () => {
   const dispatch = useDispatch();

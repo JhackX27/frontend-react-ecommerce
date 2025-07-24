@@ -1,6 +1,5 @@
 import { privateApi } from "./axiosConfig.js";
 import { tokenManager } from "../utils/tokenManager.js";
-import { data } from "react-router-dom";
 
 export class AuthService {
   //login

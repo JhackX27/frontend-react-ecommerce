@@ -1,63 +1,87 @@
-import { Home } from "./pages/public/Home.jsx";
-import { ProductDetails } from "./pages/public/ProductDetails.jsx";
-import { CartPage } from "./pages/private/CartPage.jsx";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { NavBar } from "./assets/components/layout/NavBar.jsx";
 import { Provider } from "react-redux";
 import { store } from "./store/index.js";
+import { AuthProvider } from "./context/AuthContext.jsx";
+
+// Layout
+import { NavBar } from "./assets/components/layout/NavBar.jsx";
+
+// Guards
+import { PrivateRoute } from "./guards/PrivateRoute.jsx";
+import { PublicRoute } from "./guards/PublicRoute.jsx";
+
+// Public pages
+import { Home } from "./pages/public/Home.jsx";
 import { Login } from "./pages/public/Login.jsx";
-import { Ui } from "./pages/Ui.jsx";
+import { ProductDetails } from "./pages/public/ProductDetails.jsx";
+import { NotFound } from "./pages/public/NotFound.jsx";
+
+// Private pages
+import { CartPage } from "./pages/private/CartPage.jsx";
 
 export const App = () => {
   return (
     <Provider store={store}>
-      <div className="min-w-[320px]">
-        <BrowserRouter>
-          <NavBar />
-          <Routes>
-            <Route
-              path="/"
-              element={<Home />}
-            />
-            <Route
-              path="/home"
-              element={
-                <Navigate
-                  to="/"
-                  replace
-                />
-              }
-            />
+      <AuthProvider>
+        <div className="min-w-[320px]">
+          <BrowserRouter>
+            <NavBar />
+            <Routes>
+              {/* Rutas públicas */}
+              <Route
+                path="/"
+                element={<Home />}
+              />
+              <Route
+                path="/product/:id"
+                element={<ProductDetails />}
+              />
+              <Route
+                path="/login"
+                element={
+                  <PublicRoute>
+                    <Login />
+                  </PublicRoute>
+                }
+              />
 
-            <Route
-              path=""
-              element={
-                <Navigate
-                  to="/"
-                  replace
-                />
-              }
-            />
+              {/* Rutas privadas */}
+              <Route
+                path="/cart"
+                element={
+                  <PrivateRoute>
+                    <CartPage />
+                  </PrivateRoute>
+                }
+              />
 
-            <Route
-              path="/product/:id"
-              element={<ProductDetails />}
-            />
-            <Route
-              path="/cart"
-              element={<CartPage />}
-            />
-            <Route
-              path="/login"
-              element={<Login />}
-            />
-            <Route
-              path="/ui"
-              element={<Ui />}
-            />
-          </Routes>
-        </BrowserRouter>
-      </div>
+              {/* Redirecciones */}
+              <Route
+                path="/home"
+                element={
+                  <Navigate
+                    to="/"
+                    replace
+                  />
+                }
+              />
+              <Route
+                path=""
+                element={
+                  <Navigate
+                    to="/"
+                    replace
+                  />
+                }
+              />
+              <Route
+                path="*"
+                element={<NotFound />}
+              />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      </AuthProvider>
     </Provider>
   );
 };

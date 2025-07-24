@@ -1,5 +1,50 @@
 # Guía de Estilos Tailwind - Ecommerce
 
+--temporal
+en la 1.1.-
+
+BASE_URL:
+
+process.env.NODE_ENV === "production"
+
+? "https://polospersonalizadosecommerce.vercel.app"
+
+: "https://dummyjson.com",
+
+ayudame, quiero saber para que se usa para que pueda colocar mi url adecuada, en este caso uso la del front quiero saber si es correcto, pero como aparece dummyjson pienso que solicitan la del backend, para que sirve el timeout y donde se ven los logs de development
+
+en la 1.1.- para que se usaran estas variables
+
+export const LOCAL_STORAGE_KEYS = {
+
+ACCESS_TOKEN: "accessToken",
+
+REFRESH_TOKEN: "refreshToken",
+
+USER_DATA: "userData",
+
+};
+
+en la 1.1.- para que sirve ese prueba dummyjson, sin eso no podre usar los endpoint de dumyy json necesariamente debe estar ahi?
+
+en la 1.2.- como funciona el authcontext y el usecontext, que hace exactamente y sin eso com funcionaria. eso de state y action no entiendo. Eso del authReducer que spread tiene, eso de ... Porque a veces usas const y en otras expor const. QUe es authprovider y como lo utilizas. Que es state y dispatch. Que hace el authcontext.provider en authcontex.jsx
+
+1.3.- Que es return children en privateroute? porque se llama private si devuele un public que es el login
+
+1.4.- en el 1.4 porque se llama public y a donde redirige, uselocation que hace
+
+2.2.- porque le agregaste al 2.2 el return total a los get?
+
+2.3.- en el 2.3 ya no usas   const [searchTerm, setSearchTerm] = useState(""); tampoco usas el refreshProducts, entonces ya no los uso en mi codigo, lo estoy borrando.
+
+2.4.- pARA QUE SIRVE el middleware y de que manera me sirve el devtools como lo usaria?
+
+2.5 Si dummyjson usar username y no email, eso quiere decir que debo eliminar username y mantener email, porque ya lo tenia. Como funciona ese tema de estados de location para redirigir en login.jsx como funciona. Explicame el target.name y target.value como funciona. A que se refiere el clear Error. El usedemo para que sirv, creo que no lo encesito, porque usare el dummy json.
+
+//comentar lineas de codigo register
+
+--
+
 ## Fondo Home
 
 - Color: `bg-secondary-light`

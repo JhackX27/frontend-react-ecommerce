@@ -1,109 +1,83 @@
-import { createContext, useContext, useReducer, useEffect } from "react";
-import { AuthService } from "../services/authService.js";
+import { createContext, useContext, useState } from "react";
 
+// Crear el contexto
 const AuthContext = createContext();
 
-//estados del reducer
-const authReducer = (state, action) => {
-  switch (action.type) {
-    case "LOGIN_START":
-      return { ...state, loading: true, error: null };
-    case "LOGIN_SUCCESS":
-      return {
-        ...state,
-        loading: false,
-        user: action.payload,
-        isAuthenticated: true,
-        error: null,
-      };
-    case "LOGIN_ERROR":
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-        isAuthenticated: false,
-      };
-    case "LOGOUT":
-      return {
-        ...state,
-        user: null,
-        isAuthenticated: false,
-        error: null,
-      };
-    case "CLEAR_ERROR":
-      return { ...state, error: null };
-    case "SET_USER":
-      return {
-        ...state,
-        user: action.payload,
-        isAuthenticated: true,
-      };
-    default:
-      return state;
-  }
-};
-
+// Proveedor del contexto
 export const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, {
-    user: null,
-    isAuthenticated: false,
-    loading: false,
-    error: null,
-  });
+  // Estados simplificados
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  //verificar autenticación al cargar la app
-  useEffect(() => {
-    const checkAuth = () => {
-      if (AuthService.isAuthenticated()) {
-        const user = AuthService.getCurrentUser();
-        dispatch({ type: "SET_USER", payload: user });
-      }
-    };
-
-    checkAuth();
-  }, []);
-
-  //función de login
+  // Función de login simplificada
   const login = async (username, password) => {
-    dispatch({ type: "LOGIN_START" });
+    setLoading(true);
+    setError(null);
 
-    const result = await AuthService.login(username, password);
+    try {
+      // Simulación de login exitoso
+      console.log(`Login attempt with: ${username}, ${password}`);
 
-    if (result.success) {
-      dispatch({ type: "LOGIN_SUCCESS", payload: result.data.user });
-    } else {
-      dispatch({ type: "LOGIN_ERROR", payload: result.message });
+      // Simular un usuario
+      const mockUser = {
+        id: 1,
+        username,
+        email: `${username}@example.com`,
+        firstName: "Usuario",
+        lastName: "Demo",
+      };
+
+      setUser(mockUser);
+      setIsAuthenticated(true);
+      setLoading(false);
+
+      return {
+        success: true,
+        data: { user: mockUser },
+        message: "Login exitoso",
+      };
+    } catch (error) {
+      setError("Error en login");
+      setLoading(false);
+
+      return {
+        success: false,
+        data: null,
+        message: "Error en login",
+        error: error,
+      };
     }
-
-    return result;
   };
 
-  //función de logout
+  // Función de logout simplificada
   const logout = async () => {
-    await AuthService.logout();
-    dispatch({ type: "LOGOUT" });
+    setUser(null);
+    setIsAuthenticated(false);
+    console.log("Logout successful");
   };
 
-  //limpiar errores
+  // Limpiar errores
   const clearError = () => {
-    dispatch({ type: "CLEAR_ERROR" });
+    setError(null);
   };
 
-  return (
-    <AuthContext.Provider
-      value={{
-        ...state,
-        login,
-        logout,
-        clearError,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  // Valor del contexto
+  const value = {
+    user,
+    isAuthenticated,
+    loading,
+    error,
+    login,
+    logout,
+    clearError,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-//hook para usar el contexto
+// Hook para usar el contexto
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
