@@ -3,14 +3,14 @@ import { X } from "lucide-react";
 
 export const CheckoutModal = ({ isOpen, onClose, cartItems, total }) => {
   const [formData, setFormData] = useState({
-    // Payment fields
+    // payment fields
     paymentMethod: "visa",
     cardNumber: "",
     expiryDate: "",
     cvv: "",
     cardholderName: "",
 
-    // Delivery fields
+    // delivery fields
     address1: "",
     district: "",
     department: "",
@@ -18,7 +18,7 @@ export const CheckoutModal = ({ isOpen, onClose, cartItems, total }) => {
     country: "PE",
     phone: "",
 
-    // Notes
+    // notes
     notes: "",
   });
 
@@ -29,7 +29,7 @@ export const CheckoutModal = ({ isOpen, onClose, cartItems, total }) => {
     });
   };
 
-  // Función para formatear la fecha de expiración
+  // función para formatear la fecha de expiración
   const handleExpiryChange = (e) => {
     let value = e.target.value.replace(/\D/g, ""); // Solo números
 
@@ -46,36 +46,36 @@ export const CheckoutModal = ({ isOpen, onClose, cartItems, total }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Checkout data:", formData);
-    // Aquí integrarías con tu API de pagos
+    // aquí integrarías con tu API de pagos
     onClose();
   };
 
-  // Deshabilitar scroll del body cuando el modal está abierto
+  // deshabilitar scroll del body cuando el modal está abierto
   useEffect(() => {
     if (isOpen) {
-      // Guardar el scroll actual
+      // guardar el scroll actual
       const scrollY = window.scrollY;
 
-      // Deshabilitar scroll
+      // deshabilitar scroll
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.width = "100%";
     } else {
-      // Restaurar scroll
+      // restaurar scroll
       const scrollY = document.body.style.top;
       document.body.style.overflow = "";
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.width = "";
 
-      // Restaurar posición de scroll
+      // restaurar posición de scroll
       if (scrollY) {
         window.scrollTo(0, parseInt(scrollY || "0") * -1);
       }
     }
 
-    // Cleanup al desmontar el componente
+    // cleanup al desmontar el componente
     return () => {
       document.body.style.overflow = "";
       document.body.style.position = "";
@@ -86,7 +86,7 @@ export const CheckoutModal = ({ isOpen, onClose, cartItems, total }) => {
 
   if (!isOpen) return null;
 
-  // No necesitamos cálculos adicionales, solo el total del carrito
+  // no necesitamos cálculos adicionales, solo el total del carrito
 
   return (
     <div

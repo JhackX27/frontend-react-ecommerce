@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 import { createContext, useContext, useState, useEffect } from "react";
 import { AuthService } from "../services/authService.js";
 import { tokenManager } from "../utils/tokenManager.js";
+=======
+import { createContext, useContext, useState } from "react";
+>>>>>>> rama-prueba
 
 // Crear el contexto
 const AuthContext = createContext();
 
 // Proveedor del contexto
 export const AuthProvider = ({ children }) => {
+<<<<<<< HEAD
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true); // Iniciar en true para verificar token al cargar
@@ -46,11 +51,21 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Función de login con API real
+=======
+  // Estados simplificados
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Función de login simplificada
+>>>>>>> rama-prueba
   const login = async (username, password) => {
     setLoading(true);
     setError(null);
 
     try {
+<<<<<<< HEAD
       const result = await AuthService.login(username, password);
 
       if (result.success) {
@@ -69,10 +84,37 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       const errorMessage = "Error de conexión. Intenta nuevamente.";
       setError(errorMessage);
+=======
+      // Simulación de login exitoso
+      console.log(`Login attempt with: ${username}, ${password}`);
+
+      // Simular un usuario
+      const mockUser = {
+        id: 1,
+        username,
+        email: `${username}@example.com`,
+        firstName: "Usuario",
+        lastName: "Demo",
+      };
+
+      setUser(mockUser);
+      setIsAuthenticated(true);
+      setLoading(false);
+
+      return {
+        success: true,
+        data: { user: mockUser },
+        message: "Login exitoso",
+      };
+    } catch (error) {
+      setError("Error en login");
+      setLoading(false);
+>>>>>>> rama-prueba
 
       return {
         success: false,
         data: null,
+<<<<<<< HEAD
         message: errorMessage,
         error: error,
       };
@@ -123,6 +165,19 @@ export const AuthProvider = ({ children }) => {
       await logout();
       return false;
     }
+=======
+        message: "Error en login",
+        error: error,
+      };
+    }
+  };
+
+  // Función de logout simplificada
+  const logout = async () => {
+    setUser(null);
+    setIsAuthenticated(false);
+    console.log("Logout successful");
+>>>>>>> rama-prueba
   };
 
   // Limpiar errores
@@ -138,9 +193,13 @@ export const AuthProvider = ({ children }) => {
     error,
     login,
     logout,
+<<<<<<< HEAD
     refreshToken,
     clearError,
     checkAuthStatus,
+=======
+    clearError,
+>>>>>>> rama-prueba
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

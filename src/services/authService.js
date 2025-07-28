@@ -13,15 +13,24 @@ export class AuthService {
 
       const { token, refreshToken, ...user } = response.data;
 
+<<<<<<< HEAD
       //guardar tokens y datos del usuario
       tokenManager.setTokens(token, refreshToken);
       tokenManager.setUserData(user);
+=======
+      //guardar tokens
+      tokenManager.setTokens(token, refreshToken);
+>>>>>>> rama-prueba
 
       return {
         success: true,
         data: {
           user,
+<<<<<<< HEAD
           token,
+=======
+          accessToken: token,
+>>>>>>> rama-prueba
           refreshToken,
         },
         message: "Login exitoso",
@@ -77,22 +86,47 @@ export class AuthService {
   }
 
   //refresh token
+<<<<<<< HEAD
   static async refreshToken(refreshTokenValue) {
     try {
       const response = await privateApi.post("/auth/refresh", {
         refreshToken: refreshTokenValue,
+=======
+  static async refreshToken() {
+    try {
+      const refreshToken = tokenManager.getRefreshToken();
+
+      if (!refreshToken) {
+        throw new Error("No refresh token available");
+      }
+
+      const response = await privateApi.post("/auth/refresh", {
+        refreshToken,
+>>>>>>> rama-prueba
         expiresInMins: 30,
       });
 
       const { token } = response.data;
+<<<<<<< HEAD
 
       return {
         success: true,
         data: { token },
+=======
+      tokenManager.setTokens(token, refreshToken);
+
+      return {
+        success: true,
+        data: { accessToken: token },
+>>>>>>> rama-prueba
         message: "Token renovado exitosamente",
       };
     } catch (error) {
       console.error("Refresh token error: ", error);
+<<<<<<< HEAD
+=======
+      tokenManager.clearTokens();
+>>>>>>> rama-prueba
       return {
         success: false,
         data: null,

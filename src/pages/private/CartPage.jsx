@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Plus, Minus, Trash } from "lucide-react";
 import { removeFromCart, updateQuantity } from "../../features/cart/cartSlice";
+<<<<<<< HEAD
 import { Footer } from "../../assets/components/Footer";
 import { CheckoutModal } from "../../assets/components/CheckoutModal";
+=======
+import { Footer } from "../../assets/components/layout/Footer";
+import { CheckoutModal } from "../../assets/components/ui/CheckoutModal";
+>>>>>>> rama-prueba
 
 export const CartPage = () => {
   const dispatch = useDispatch();

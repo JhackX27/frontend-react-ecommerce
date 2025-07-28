@@ -4,7 +4,11 @@ import { Pagination } from "./Pagination.jsx";
 
 export const ProductGrid = ({ products = [] }) => {
   const [currentPage, setCurrentPage] = useState(1);
+<<<<<<< HEAD:src/assets/components/ProductGrid.jsx
   const itemsPerPage = 6; // productos por página
+=======
+  const itemsPerPage = 6;
+>>>>>>> rama-prueba:src/assets/components/ui/ProductGrid.jsx
 
   // Ccalcular productos para la página actual
   const paginatedProducts = useMemo(() => {
@@ -16,8 +20,13 @@ export const ProductGrid = ({ products = [] }) => {
   // calcular total de páginas
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
+<<<<<<< HEAD:src/assets/components/ProductGrid.jsx
   // resetear a página 1 cuando cambien los productos filtrados
   useMemo(() => {
+=======
+  // Resetear a página 1 cuando cambien los productos filtrados
+  useEffect(() => {
+>>>>>>> rama-prueba:src/assets/components/ui/ProductGrid.jsx
     setCurrentPage(1);
   }, [products]);
 
@@ -27,7 +36,11 @@ export const ProductGrid = ({ products = [] }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+<<<<<<< HEAD:src/assets/components/ProductGrid.jsx
   // si no hay productos, mostrar mensaje
+=======
+  // Si no hay productos, mostrar mensaje
+>>>>>>> rama-prueba:src/assets/components/ui/ProductGrid.jsx
   if (!products || products.length === 0) {
     return (
       <div className="text-center py-12">
@@ -56,20 +69,27 @@ export const ProductGrid = ({ products = [] }) => {
               title={product.title}
               price={product.price}
               description={product.description}
-              image={product.image}
+              image={
+                product.images && product.images.length > 0
+                  ? product.images[0]
+                  : null
+              }
+              thumbnail={product.thumbnail}
             />
           );
         })}
       </div>
 
-      {/* Componente de paginación */}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-        itemsPerPage={itemsPerPage}
-        totalItems={products.length}
-      />
+      {/* Componente de paginación - Solo mostrar si hay múltiples páginas */}
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          itemsPerPage={itemsPerPage}
+          totalItems={products.length}
+        />
+      )}
     </div>
   );
 };

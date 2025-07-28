@@ -1,7 +1,11 @@
 export const API_CONFIG = {
   BASE_URL:
     process.env.NODE_ENV === "production"
+<<<<<<< HEAD
       ? "https://dummyjson.com"
+=======
+      ? "https://localhost/api"
+>>>>>>> rama-prueba
       : "https://dummyjson.com",
 
   TIMEOUT: 10000,
@@ -31,3 +35,12 @@ export const HTTP_STATUS = {
   NOT_FOUND: 404,
   INTERNAL_SERVER_ERROR: 500,
 };
+<<<<<<< HEAD
+=======
+
+// Usuarios de prueba para DummyJSON
+export const DEMO_USERS = {
+  ADMIN: { username: "kminchelle", password: "0lelplR" },
+  USER: { username: "atuny0", password: "9uQFF1Lh" },
+};
+>>>>>>> rama-prueba

@@ -21,6 +21,7 @@ export const tokenManager = {
   clearTokens() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+<<<<<<< HEAD
     localStorage.removeItem("userData");
   },
 
@@ -37,6 +38,8 @@ export const tokenManager = {
     } catch {
       return null;
     }
+=======
+>>>>>>> rama-prueba
   },
 
   //verificar si expiro
