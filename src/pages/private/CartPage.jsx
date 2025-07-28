@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Plus, Minus, Trash } from "lucide-react";
-import { removeFromCart, updateQuantity } from "../features/cart/cartSlice";
-import { Footer } from "../assets/components/Footer";
-import { CheckoutModal } from "../assets/components/CheckoutModal";
+import { removeFromCart, updateQuantity } from "../../features/cart/cartSlice";
+import { Footer } from "../../assets/components/Footer";
+import { CheckoutModal } from "../../assets/components/CheckoutModal";
 
 export const CartPage = () => {
   const dispatch = useDispatch();

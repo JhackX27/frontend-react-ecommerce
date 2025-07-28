@@ -1,26 +1,39 @@
 import { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { User, ShoppingCart, ArrowUp } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import { setSearchTerm } from "../../features/products/productSlice.js";
+import { useSelector } from "react-redux";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 export const NavBar = () => {
-  //Search
+  //estados locales
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
-  const searchTerm = useSelector((state) => state.product.searchTerm);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // Ref para el menú desplegable
+  //ref para el menú desplegable
   const menuRef = useRef(null);
 
-  //Cart
-  const cartItems = useSelector((state) => state.cart.items);
+  //hooks
+  const navigate = useNavigate();
+  const location = useLocation();
+  const activeLink = location.pathname;
+  const { user, isAuthenticated, logout } = useAuth();
+
+  //redux selectors
+  const cartItems = useSelector((state) => state.cart?.items || []);
   const itemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+  //handlers
   const handleUser = () => {
     setIsOpen(!isOpen);
   };
 
-  // Cerrar menú cuando se hace clic fuera
+  const handleLogout = async () => {
+    await logout();
+    setIsOpen(false);
+    navigate("/");
+  };
+
+  //cerrar menú al hacer click afuera
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -28,30 +41,24 @@ export const NavBar = () => {
       }
     };
 
-    // Solo agregar el listener si el menú está abierto
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
-    // Cleanup del event listener
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
 
-  //Links Path
-  const location = useLocation();
-  const activeLink = location.pathname;
-
-  //Button flotant arrow
-  const [showScrollTop, setShowScrollTop] = useState(false);
+  //scroll to top button
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 200); // Muestra el botón después de 200px
+      setShowScrollTop(window.scrollY > 200);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
