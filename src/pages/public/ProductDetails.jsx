@@ -1,17 +1,50 @@
 import { Link, useParams } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
+import { ShoppingCart, ArrowLeft } from "lucide-react";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice.js";
-import { Footer } from "../../assets/components/Footer.jsx";
-import { Breadcrumb } from "../../assets/components/Breadcrumb.jsx";
+import { Footer } from "../../assets/components/layout/Footer.jsx";
+import { Breadcrumb } from "../../assets/components/ui/Breadcrumb.jsx";
+import { useState, useEffect } from "react";
+import { ProductService } from "../../services/productService.js";
 
 export const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  const product = useSelector((state) => {
-    return state.product.items.find((product) => product.id === parseInt(id));
-  });
+  // estados carga del producto
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  //cargar producto
+  useEffect(() => {
+    const loadProduct = async () => {
+      setLoading(true);
+      setError(null);
+
+      const result = await ProductService.getProductById(id);
+
+      if (result.success) {
+        setProduct(result.data);
+      } else {
+        setError(result.message);
+      }
+
+      setLoading(false);
+    };
+
+    if (id) {
+      loadProduct();
+    }
+  }, [id]);
+
+  // función agregar al carrito
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart(product));
+      console.log("Producto agregar al carrito", product.title);
+    }
+  };
 
   if (!product) {
     return (
@@ -51,7 +84,8 @@ export const ProductDetails = () => {
         <Breadcrumb
           items={[
             { label: "Home", to: "/" },
-            { label: "Product", to: `/product/${product.id}` },
+            { label: product.category || "Producto", to: "#" },
+            { label: product.title, to: `/product/${product.id}` },
           ]}
         />
         <div
@@ -109,18 +143,28 @@ export const ProductDetails = () => {
                     {product.category}
                   </span>
                 </div>
-                <button
-                  className="font-Tertiary-Inter w-full bg-primary-light text-secondary-accent 
+                <div className="w-full flex flex-col gap-2 max-iphone:flex-row">
+                  <button
+                    className="font-Tertiary-Inter w-full bg-primary-light text-secondary-accent 
                     px-8 py-3 rounded-md flex items-center justify-center
                     gap-2 hover:bg-primary-accent hover:scale-105 transition-all ease-in
                     max-iphone:w-auto"
-                  onClick={() => {
-                    dispatch(addToCart(product));
-                  }}
-                >
-                  <ShoppingCart />
-                  Add to Cart
-                </button>
+                    onClick={handleAddToCart}
+                  >
+                    <ShoppingCart />
+                    Add to Cart
+                  </button>
+                  <button
+                    className="font-Tertiary-Inter w-full bg-state-danger text-secondary-accent 
+                    px-8 py-3 rounded-md flex items-center justify-center
+                    gap-2 hover:scale-105 transition-all ease-in
+                    max-iphone:w-auto"
+                    onClick={handleAddToCart}
+                  >
+                    <ArrowLeft />
+                    Back to home
+                  </button>
+                </div>
               </div>
             </div>
           </div>

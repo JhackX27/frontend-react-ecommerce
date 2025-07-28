@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { ProductCart } from "./ProductCart.jsx";
+import { ProductCard } from "./ProductCard.jsx";
 import { Pagination } from "./Pagination.jsx";
 
 export const ProductGrid = ({ products = [] }) => {
@@ -50,7 +50,7 @@ export const ProductGrid = ({ products = [] }) => {
       >
         {paginatedProducts.map((product) => {
           return (
-            <ProductCart
+            <ProductCard
               key={product.id}
               id={product.id}
               title={product.title}

@@ -1,6 +1,12 @@
 import { useNavigate } from "react-router-dom";
-export const ProductCart = ({ id, title, price, description, image }) => {
+
+export const ProductCard = ({ id, title, price, description, image }) => {
   const navigate = useNavigate();
+
+  const handleViewDetails = () => {
+    navigate(`/product/${id}`);
+  };
+
   return (
     <div className="cursor-crosshair shadow-lg rounded-md flex flex-col justify-between h-full bg-gray-50">
       <div>
@@ -27,7 +33,7 @@ export const ProductCart = ({ id, title, price, description, image }) => {
         <div className="flex justify-between items-center ">
           <p className="text-xl font-medium">${price}</p>
           <button
-            onClick={() => navigate(`/product/${id}`)}
+            onClick={handleViewDetails}
             className="cursor-pointer font-Tertiary-Inter
             bg-primary-light text-secondary-accent rounded-md p-2
             hover:scale-105 hover:bg-primary-accent transition-all ease-in"

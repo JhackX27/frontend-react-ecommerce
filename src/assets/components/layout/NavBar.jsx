@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { User, ShoppingCart, ArrowUp } from "lucide-react";
 import { useSelector } from "react-redux";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../../context/AuthContext.jsx";
 
 export const NavBar = () => {
   //estados locales

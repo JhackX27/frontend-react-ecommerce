@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ProductGrid } from "../../assets/components/ProductGrid.jsx";
-import { Footer } from "../../assets/components/Footer.jsx";
+import { ProductGrid } from "../../assets/components/ui/ProductGrid.jsx";
+import { Footer } from "../../assets/components/layout/Footer.jsx";
 import { Loading } from "../../assets/components/common/Loading.jsx";
 import { ErrorMessage } from "../../assets/components/common/ErrorMessage.jsx";
 import { useProducts } from "../../hooks/useProducts.js";

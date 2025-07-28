@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Footer } from "../../assets/components/Footer.jsx";
+import { Footer } from "../../assets/components/layout/Footer.jsx";
 
 export const Login = () => {
   // Estado para alternar entre Login y Register
