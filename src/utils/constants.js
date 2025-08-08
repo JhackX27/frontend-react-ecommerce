@@ -1,11 +1,9 @@
 export const API_CONFIG = {
   BASE_URL:
-    process.env.NODE_ENV === "production"
-      ? "https://dummyjson.com"
-      : "https://dummyjson.com",
-
-  TIMEOUT: 10000,
-  ENABLE_LOGS: process.env.NODE_ENV === "development",
+    import.meta.env.VITE_API_BASE_URL || "https://api.jhackalzamora.com/api",
+  TIMEOUT: parseInt(import.meta.env.VITE_API_TIMEOUT) || 10000,
+  ENABLE_LOGS:
+    import.meta.env.VITE_ENABLE_LOGS === "true" || import.meta.env.DEV,
 };
 
 export const ROUTES = {

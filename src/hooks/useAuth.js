@@ -39,7 +39,7 @@ export const useAuth = () => {
 
   const logout = useCallback(async () => {
     setLoading(true);
-    await AuthService.logout;
+    await AuthService.logout();
 
     setUser(null);
     setIsAuthenticated(false);

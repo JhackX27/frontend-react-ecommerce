@@ -138,6 +138,7 @@ export class ProductService {
   }
 
   //buscar productos
+
   static async searchProducts(query) {
     try {
       const response = await publicApi.get("/products/search", {

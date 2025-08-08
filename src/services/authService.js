@@ -5,7 +5,7 @@ export class AuthService {
   //login
   static async login(username, password) {
     try {
-      const response = await privateApi.post("/auth/login", {
+      const response = await privateApi.post("/users/login", {
         username,
         password,
         expiresInMins: 30,
@@ -56,6 +56,7 @@ export class AuthService {
   }
 
   //obtener perfil del usuario autenticado
+  /*
   static async getUserProfile() {
     try {
       const response = await privateApi.get("/auth/me");
@@ -75,11 +76,12 @@ export class AuthService {
       };
     }
   }
+    */
 
   //refresh token
   static async refreshToken(refreshTokenValue) {
     try {
-      const response = await privateApi.post("/auth/refresh", {
+      const response = await privateApi.post("/users/refresh-token", {
         refreshToken: refreshTokenValue,
         expiresInMins: 30,
       });
@@ -105,6 +107,8 @@ export class AuthService {
   //logout
   static async logout() {
     try {
+      await privateApi.post("/users/logout");
+
       tokenManager.clearTokens();
 
       return {
@@ -113,6 +117,7 @@ export class AuthService {
       };
     } catch (error) {
       console.error("Logout error: ", error);
+
       tokenManager.clearTokens();
 
       return {

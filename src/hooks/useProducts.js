@@ -2,27 +2,27 @@ import { useState, useEffect, useCallback } from "react";
 import { ProductService } from "../services/productService.js";
 
 export const useProducts = () => {
-  // Estados del service
+  // estados del service
   const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [productsByCategory, setProductsByCategory] = useState({});
 
-  // Estado de carga
+  // estado de carga
   const [loading, setLoading] = useState(false);
 
-  // Estado de errores
+  // estado de errores
   const [error, setError] = useState(null);
 
-  // Estados de filtros
+  // estados de filtros
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Cargar productos iniciales
+  // ccargar productos iniciales
   useEffect(() => {
     loadInitialData();
   }, []);
 
-  // Filtrar productos cuando cambia la categoría, pero solo si tenemos productos
+  // filtrar productos cuando cambia la categoría, pero solo si tenemos productos
   useEffect(() => {
     // Solo filtrar si tenemos productos
     if (allProducts.length > 0 || Object.keys(productsByCategory).length > 0) {
@@ -35,22 +35,21 @@ export const useProducts = () => {
     setError(null);
 
     try {
-      // Cargar categorías y productos iniciales en paralelo para mayor velocidad
+      // cargar categorías y productos iniciales en paralelo para mayor velocidad
       const [categoriesResult, productsResult] = await Promise.all([
         ProductService.getCategories(),
         ProductService.getAllProducts(100), // Cargar más productos de una vez
       ]);
 
-      // Procesar categorías
+      // crocesar categorías
       if (categoriesResult.success) {
-        // Asegurarse de que todas las categorías sean strings
+        // asegurarse de que todas las categorías sean strings
         const processedCategories = categoriesResult.data.map((category) =>
           typeof category === "object"
             ? category.name || category.slug || JSON.stringify(category)
             : category
         );
 
-        // Verificar si ya existe "All" para no duplicarlo
         if (!processedCategories.includes("All")) {
           setCategories(["All", ...processedCategories]);
         } else {
@@ -61,7 +60,7 @@ export const useProducts = () => {
         if (productsResult.success) {
           const allProductsData = productsResult.data;
           setAllProducts(allProductsData);
-          setFilteredProducts(allProductsData); // Mostrar todos los productos inicialmente
+          setFilteredProducts(allProductsData);
 
           // Crear un mapa inicial de productos por categoría basado en los productos ya cargados
           const productsByCat = { All: allProductsData };
@@ -81,11 +80,7 @@ export const useProducts = () => {
             }
           });
 
-          // Actualizar el estado con los productos agrupados
           setProductsByCategory(productsByCat);
-
-          // No cargar todas las categorías de inmediato para evitar muchas llamadas a la API
-          // Solo cargaremos categorías específicas cuando el usuario las seleccione
         } else {
           setError(productsResult.message);
         }
@@ -100,16 +95,16 @@ export const useProducts = () => {
     }
   };
 
-  // Filtrar productos por categoría de manera eficiente
+  // filtrar productos por categoría de manera eficiente
   const filterProductsByCategory = useCallback(
     (category) => {
-      // Para la categoría "All", mostrar todos los productos
+      // para la categoría "All", mostrar todos los productos
       if (!category || category === "All") {
         setFilteredProducts(allProducts);
         return;
       }
 
-      // Si ya tenemos los productos de esta categoría en caché, usarlos inmediatamente
+      // si ya tenemos los productos de esta categoría en caché, usarlos inmediatamente
       if (
         productsByCategory[category] &&
         productsByCategory[category].length > 0
@@ -118,8 +113,6 @@ export const useProducts = () => {
         return;
       }
 
-      // Si no tenemos los productos en caché pero tenemos todos los productos,
-      // intentar filtrar localmente primero
       if (allProducts.length > 0) {
         const localFiltered = allProducts.filter(
           (product) =>
