@@ -20,19 +20,11 @@ export const useAuth = () => {
     }
   }, []);
 
-<<<<<<< HEAD
-  const login = useCallback(async (username, password) => {
-    setLoading(true);
-    setError(null);
-
-    const result = await AuthService.login(username, password);
-=======
   const login = useCallback(async (email, password) => {
     setLoading(true);
     setError(null);
 
     const result = await AuthService.login(email, password);
->>>>>>> rama-nueva
 
     if (result.success) {
       setUser(result.data.user);
@@ -45,11 +37,6 @@ export const useAuth = () => {
     return result;
   }, []);
 
-<<<<<<< HEAD
-  const logout = useCallback(async () => {
-    setLoading(true);
-    await AuthService.logout;
-=======
   const register = useCallback(async (userData) => {
     setLoading(true);
     setError(null);
@@ -63,7 +50,6 @@ export const useAuth = () => {
   const logout = useCallback(async () => {
     setLoading(true);
     await AuthService.logout();
->>>>>>> rama-nueva
 
     setUser(null);
     setIsAuthenticated(false);
@@ -80,10 +66,7 @@ export const useAuth = () => {
 
     //acciones,
     login,
-<<<<<<< HEAD
-=======
     register,
->>>>>>> rama-nueva
     logout,
     clearError: () => setError(null),
     refreshAuth: checkAuthStatus,

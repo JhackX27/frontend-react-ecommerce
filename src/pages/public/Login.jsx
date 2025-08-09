@@ -1,12 +1,8 @@
 import { useState } from "react";
-<<<<<<< HEAD
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../hooks/useAuth.js";
 import { Footer } from "../../assets/components/layout/Footer.jsx";
 import { Circle } from "lucide-react";
-=======
-import { Footer } from "../../assets/components/layout/Footer.jsx";
->>>>>>> rama-nueva
 
 export const Login = () => {
   //estado para alternar entre Login y Register

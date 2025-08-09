@@ -51,16 +51,9 @@ privateApi.interceptors.response.use(
         if (refreshToken) {
           //intentar renovar token
           const response = await axios.post(
-<<<<<<< HEAD
-            `${API_CONFIG.BASE_URL}/auth/refresh`,
-            {
-              refreshToken,
-              expiresInMins: 30,
-=======
             `${API_CONFIG.BASE_URL}/users/refresh-token`,
             {
               refreshToken,
->>>>>>> rama-nueva
             }
           );
 
@@ -83,11 +76,6 @@ privateApi.interceptors.response.use(
   }
 );
 
-<<<<<<< HEAD
-//login en desarrollo
-=======
-//login
->>>>>>> rama-nueva
 if (API_CONFIG.ENABLE_LOGS) {
   publicApi.interceptors.request.use((request) => {
     console.log(

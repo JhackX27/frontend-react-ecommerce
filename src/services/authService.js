@@ -3,42 +3,25 @@ import { tokenManager } from "../utils/tokenManager.js";
 
 export class AuthService {
   //login
-<<<<<<< HEAD
-  static async login(username, password) {
-    try {
-      const response = await privateApi.post("/auth/login", {
-        username,
-        password,
-        expiresInMins: 30,
-=======
+
   static async login(email, password) {
     try {
       const response = await privateApi.post("/users/login", {
         email,
         password,
->>>>>>> rama-nueva
       });
 
       const { token, refreshToken, ...user } = response.data;
 
-<<<<<<< HEAD
-      //guardar tokens
-      tokenManager.setTokens(token, refreshToken);
-=======
       //guardar tokens y datos del usuario
       tokenManager.setTokens(token, refreshToken);
       tokenManager.setUserData(user);
->>>>>>> rama-nueva
 
       return {
         success: true,
         data: {
           user,
-<<<<<<< HEAD
-          accessToken: token,
-=======
           token,
->>>>>>> rama-nueva
           refreshToken,
         },
         message: "Login exitoso",
@@ -73,10 +56,9 @@ export class AuthService {
   }
 
   //obtener perfil del usuario autenticado
-<<<<<<< HEAD
-=======
+
   /*
->>>>>>> rama-nueva
+
   static async getUserProfile() {
     try {
       const response = await privateApi.get("/auth/me");
@@ -96,7 +78,7 @@ export class AuthService {
       };
     }
   }
-<<<<<<< HEAD
+
 
   //refresh token
   static async refreshToken() {
@@ -123,7 +105,7 @@ export class AuthService {
     } catch (error) {
       console.error("Refresh token error: ", error);
       tokenManager.clearTokens();
-=======
+
     */
 
   //refresh token
@@ -141,7 +123,6 @@ export class AuthService {
         message: "Token renovado exitosamente",
       };
     } catch (error) {
->>>>>>> rama-nueva
       return {
         success: false,
         data: null,
@@ -150,12 +131,6 @@ export class AuthService {
       };
     }
   }
-
-<<<<<<< HEAD
-  //logout
-  static async logout() {
-    try {
-=======
   //registro
   static async register(userData) {
     try {
@@ -181,7 +156,6 @@ export class AuthService {
     try {
       await privateApi.post("/users/logout");
 
->>>>>>> rama-nueva
       tokenManager.clearTokens();
 
       return {
@@ -190,10 +164,7 @@ export class AuthService {
       };
     } catch (error) {
       console.error("Logout error: ", error);
-<<<<<<< HEAD
-=======
 
->>>>>>> rama-nueva
       tokenManager.clearTokens();
 
       return {

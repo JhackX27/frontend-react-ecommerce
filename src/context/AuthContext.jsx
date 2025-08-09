@@ -1,25 +1,12 @@
-<<<<<<< HEAD
-import { createContext, useContext, useState } from "react";
-=======
 import { createContext, useContext, useState, useEffect } from "react";
 import { AuthService } from "../services/authService.js";
 import { tokenManager } from "../utils/tokenManager.js";
->>>>>>> rama-nueva
 
 // Crear el contexto
 const AuthContext = createContext();
 
 // Proveedor del contexto
 export const AuthProvider = ({ children }) => {
-<<<<<<< HEAD
-  // Estados simplificados
-  const [user, setUser] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  // Función de login simplificada
-=======
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true); // Iniciar en true para verificar token al cargar
@@ -59,38 +46,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Función de login con API real
->>>>>>> rama-nueva
   const login = async (username, password) => {
     setLoading(true);
     setError(null);
 
     try {
-<<<<<<< HEAD
-      // Simulación de login exitoso
-      console.log(`Login attempt with: ${username}, ${password}`);
-
-      // Simular un usuario
-      const mockUser = {
-        id: 1,
-        username,
-        email: `${username}@example.com`,
-        firstName: "Usuario",
-        lastName: "Demo",
-      };
-
-      setUser(mockUser);
-      setIsAuthenticated(true);
-      setLoading(false);
-
-      return {
-        success: true,
-        data: { user: mockUser },
-        message: "Login exitoso",
-      };
-    } catch (error) {
-      setError("Error en login");
-      setLoading(false);
-=======
       const result = await AuthService.login(username, password);
 
       if (result.success) {
@@ -109,24 +69,10 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       const errorMessage = "Error de conexión. Intenta nuevamente.";
       setError(errorMessage);
->>>>>>> rama-nueva
 
       return {
         success: false,
         data: null,
-<<<<<<< HEAD
-        message: "Error en login",
-        error: error,
-      };
-    }
-  };
-
-  // Función de logout simplificada
-  const logout = async () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    console.log("Logout successful");
-=======
         message: errorMessage,
         error: error,
       };
@@ -177,7 +123,6 @@ export const AuthProvider = ({ children }) => {
       await logout();
       return false;
     }
->>>>>>> rama-nueva
   };
 
   // Limpiar errores
@@ -193,13 +138,9 @@ export const AuthProvider = ({ children }) => {
     error,
     login,
     logout,
-<<<<<<< HEAD
-    clearError,
-=======
     refreshToken,
     clearError,
     checkAuthStatus,
->>>>>>> rama-nueva
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

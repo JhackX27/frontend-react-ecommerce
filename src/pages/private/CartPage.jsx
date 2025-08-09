@@ -2,18 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Plus, Minus, Trash } from "lucide-react";
-<<<<<<< HEAD
-import { removeFromCart, updateQuantity } from "../../features/cart/cartSlice";
-import { Footer } from "../../assets/components/layout/Footer";
-import { CheckoutModal } from "../../assets/components/ui/CheckoutModal";
-=======
 import {
   removeFromCart,
   updateQuantity,
 } from "../../features/cart/cartSlice.js";
 import { Footer } from "../../assets/components/layout/Footer.jsx";
 import { CheckoutModal } from "../../assets/components/ui/CheckoutModal.jsx";
->>>>>>> rama-nueva
 
 export const CartPage = () => {
   const dispatch = useDispatch();
