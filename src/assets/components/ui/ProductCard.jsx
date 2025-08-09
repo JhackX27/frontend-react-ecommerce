@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
-export const ProductCard = ({ id, title, price, description, image }) => {
+export const ProductCard = ({ idProduct, name, price, description, image }) => {
   const navigate = useNavigate();
 
   const handleViewDetails = () => {
-    navigate(`/product/${id}`);
+    navigate(`/product/${idProduct}`);
   };
 
   return (
@@ -13,19 +13,19 @@ export const ProductCard = ({ id, title, price, description, image }) => {
         <div className="aspect-square rounded-t-md overflow-hidden">
           <img
             src={image}
-            alt={title}
+            alt={name}
             className="w-full h-full object-cover"
           />
         </div>
         <div className="p-4">
           <h2
-            className="font-Primary-Poppins text-xl font-semibold my-2 h-14 line-clamp-2
+            className="font-Primary-Poppins text-xl font-semibold my-2 h-14 overflow-hidden
           text-primary-dark"
           >
-            {title}
+            {name}
           </h2>
-          <p className="text-sm text-zinc-500 h-16 line-clamp-3">
-            {description}
+          <p className="text-sm text-zinc-500 h-16 overflow-hidden text-ellipsis">
+            {description || "Sin descripción disponible"}
           </p>
         </div>
       </div>

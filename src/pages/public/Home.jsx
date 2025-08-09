@@ -18,19 +18,9 @@ export const Home = () => {
   } = useProducts();
 
   const handleCategoryChange = (category) => {
-    //evitar recargar la misma categoría
-    if (selectedCategory === category) return;
-
-    //guardar la posición de scroll actual
-    const scrollPosition = window.scrollY;
-
-    //cambiar la categoría
+    
     setSelectedCategory(category);
-
-    //restaurar la posición de scroll después de que React actualice el DOM
-    requestAnimationFrame(() => {
-      window.scrollTo(0, scrollPosition);
-    });
+    
   };
 
   return (
@@ -64,20 +54,7 @@ export const Home = () => {
           {/* filtros por categoría */}
           <div className="flex gap-4 flex-wrap mb-8">
             {categories.map((category) => {
-              {
-                /* verificar si category es objeto o cadena */
-              }
-              const categoryValue =
-                typeof category === "object"
-                  ? category.name || category.slug || JSON.stringify(category)
-                  : category;
-              const categoryKey =
-                typeof category === "object"
-                  ? category.slug || category.id || JSON.stringify(category)
-                  : category;
-
-              const isSelected = selectedCategory === categoryValue;
-
+              const isSelected = selectedCategory === category;
               return (
                 <button
                   className={
@@ -86,8 +63,8 @@ export const Home = () => {
                       ? "bg-primary-light scale-105"
                       : "bg-primary-accent")
                   }
-                  onClick={() => handleCategoryChange(categoryValue)}
-                  key={categoryKey}
+                  onClick={() => handleCategoryChange(category)}
+                  key={category}
                 >
                   {category}
                 </button>

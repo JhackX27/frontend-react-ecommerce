@@ -51,12 +51,16 @@ export const ProductGrid = ({ products = [] }) => {
         {paginatedProducts.map((product) => {
           return (
             <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.title}
+              key={product.idProduct}
+              idProduct={product.idProduct}
+              name={product.name}
               price={product.price}
               description={product.description}
-              image={product.image}
+              image={
+                product.image
+                  ? `https://api.jhackalzamora.com/${product.image}`
+                  : "https://via.placeholder.com/460"
+              }
             />
           );
         })}

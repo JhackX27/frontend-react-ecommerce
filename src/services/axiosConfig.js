@@ -54,7 +54,6 @@ privateApi.interceptors.response.use(
             `${API_CONFIG.BASE_URL}/users/refresh-token`,
             {
               refreshToken,
-              expiresInMins: 30,
             }
           );
 

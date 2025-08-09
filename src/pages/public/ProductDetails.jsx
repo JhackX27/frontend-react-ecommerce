@@ -42,16 +42,29 @@ export const ProductDetails = () => {
   const handleAddToCart = () => {
     if (product) {
       dispatch(addToCart(product));
-      console.log("Producto agregar al carrito", product.title);
+      console.log("Producto agregar al carrito", product.name);
     }
   };
 
-  if (!product) {
+  if (loading) {
     return (
       <div>
         <div className="h-screen w-full flex flex-col gap-3 justify-center items-center bg-secondary-light">
           <h2 className="font-Primary-Poppins text-primary-dark text-3xl font-bold">
-            Product not found
+            Loading...
+          </h2>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error || !product) {
+    return (
+      <div>
+        <div className="h-screen w-full flex flex-col gap-3 justify-center items-center bg-secondary-light">
+          <h2 className="font-Primary-Poppins text-primary-dark text-3xl font-bold">
+            {error || "Product not found"}
           </h2>
           <Link
             to="/"
@@ -84,8 +97,8 @@ export const ProductDetails = () => {
         <Breadcrumb
           items={[
             { label: "Home", to: "/" },
-            { label: product.category || "Producto", to: "#" },
-            { label: product.title, to: `/product/${product.id}` },
+            { label: product.categoryRef?.name || "Producto", to: "#" },
+            { label: product.name, to: `/product/${product.idProduct}` },
           ]}
         />
         <div
@@ -97,7 +110,7 @@ export const ProductDetails = () => {
               className="font-Primary-Poppins text-primary-dark text-3xl font-bold text-center mb-2
             "
             >
-              {product.title}
+              {product.name}
             </h1>
           </div>
           <div
@@ -116,8 +129,12 @@ export const ProductDetails = () => {
               >
                 <img
                   className="mx-auto h-full object-cover rounded-md"
-                  src={product.image}
-                  alt={product.title}
+                  src={
+                    product.image
+                      ? `https://api.jhackalzamora.com/${product.image}`
+                      : "https://via.placeholder.com/460"
+                  }
+                  alt={product.name}
                 />
               </div>
             </div>
@@ -128,7 +145,7 @@ export const ProductDetails = () => {
               max-laptop:w-[460px] max-laptop:aspect-square "
               >
                 <p className="font-Tertiary-Inter text-secondary-dark mb-6">
-                  {product.description}
+                  {product.description || "Sin descripción disponible"}
                 </p>
                 <div className="mb-6">
                   <span className="font-Tertiary-Inter text-primary-dark text-3xl font-medium">
@@ -140,7 +157,7 @@ export const ProductDetails = () => {
                     Category
                   </h3>
                   <span className="font-Tertiary-Inter bg-primary-accent text-secondary-accent inline-block rounded-full px-3 py-1 text-sm">
-                    {product.category}
+                    {product.categoryRef?.name}
                   </span>
                 </div>
                 <div className="w-full flex flex-col gap-2 max-iphone:flex-row">
@@ -154,16 +171,16 @@ export const ProductDetails = () => {
                     <ShoppingCart />
                     Add to Cart
                   </button>
-                  <button
+                  <Link
+                    to="/"
                     className="font-Tertiary-Inter w-full bg-state-danger text-secondary-accent 
                     px-8 py-3 rounded-md flex items-center justify-center
                     gap-2 hover:scale-105 transition-all ease-in
                     max-iphone:w-auto"
-                    onClick={handleAddToCart}
                   >
                     <ArrowLeft />
                     Back to home
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

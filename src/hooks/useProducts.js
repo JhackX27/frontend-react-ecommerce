@@ -35,10 +35,9 @@ export const useProducts = () => {
     setError(null);
 
     try {
-      // cargar categorías y productos iniciales en paralelo para mayor velocidad
       const [categoriesResult, productsResult] = await Promise.all([
         ProductService.getCategories(),
-        ProductService.getAllProducts(100), // Cargar más productos de una vez
+        ProductService.getAllProducts(100),
       ]);
 
       // crocesar categorías
@@ -67,12 +66,9 @@ export const useProducts = () => {
 
           // Agrupar productos por categoría para filtrado rápido
           allProductsData.forEach((product) => {
-            if (product.category) {
-              const category =
-                typeof product.category === "object"
-                  ? product.category.name || product.category.slug
-                  : product.category;
+            const category = product.categoryRef?.name;
 
+            if (category) {
               if (!productsByCat[category]) {
                 productsByCat[category] = [];
               }
@@ -115,10 +111,7 @@ export const useProducts = () => {
 
       if (allProducts.length > 0) {
         const localFiltered = allProducts.filter(
-          (product) =>
-            product.category === category ||
-            (typeof product.category === "string" &&
-              product.category.toLowerCase() === category.toLowerCase())
+          (product) => product.categoryRef?.name === category
         );
 
         if (localFiltered.length > 0) {
@@ -132,10 +125,7 @@ export const useProducts = () => {
         }
       }
 
-      // Como último recurso, cargar desde la API
       setLoading(true);
-
-      // Usar una variable para evitar actualizaciones de estado si el componente se desmonta
       let isMounted = true;
 
       ProductService.getProductsByCategory(category)
@@ -181,7 +171,9 @@ export const useProducts = () => {
   const getProductById = useCallback(
     async (id) => {
       // Primero buscar en los productos locales
-      const localProduct = allProducts.find((p) => p.id === parseInt(id));
+      const localProduct = allProducts.find(
+        (p) => p.idProduct === parseInt(id)
+      );
       if (localProduct) {
         return { success: true, data: localProduct };
       }
@@ -215,9 +207,9 @@ export const useProducts = () => {
       // Buscar localmente
       const searchLower = query.toLowerCase();
       const filtered = productsToSearch.filter((product) => {
-        // Buscar en título y descripción
+        // Buscar en nombre y descripción
         return (
-          product.title.toLowerCase().includes(searchLower) ||
+          product.name.toLowerCase().includes(searchLower) ||
           (product.description &&
             product.description.toLowerCase().includes(searchLower))
         );

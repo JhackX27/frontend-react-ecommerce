@@ -27,6 +27,8 @@ p {
 }
 
 .bg {
-  background: url("https://placecats.com/millie_neo/1200/760");
-  background-size: cover;
+  background: url("/hero.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }

@@ -20,11 +20,11 @@ export const useAuth = () => {
     }
   }, []);
 
-  const login = useCallback(async (username, password) => {
+  const login = useCallback(async (email, password) => {
     setLoading(true);
     setError(null);
 
-    const result = await AuthService.login(username, password);
+    const result = await AuthService.login(email, password);
 
     if (result.success) {
       setUser(result.data.user);
@@ -32,6 +32,16 @@ export const useAuth = () => {
     } else {
       setError(result.message);
     }
+
+    setLoading(false);
+    return result;
+  }, []);
+
+  const register = useCallback(async (userData) => {
+    setLoading(true);
+    setError(null);
+
+    const result = await AuthService.register(userData);
 
     setLoading(false);
     return result;
@@ -56,6 +66,7 @@ export const useAuth = () => {
 
     //acciones,
     login,
+    register,
     logout,
     clearError: () => setError(null),
     refreshAuth: checkAuthStatus,

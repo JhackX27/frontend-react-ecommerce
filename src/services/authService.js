@@ -3,12 +3,11 @@ import { tokenManager } from "../utils/tokenManager.js";
 
 export class AuthService {
   //login
-  static async login(username, password) {
+  static async login(email, password) {
     try {
       const response = await privateApi.post("/users/login", {
-        username,
+        email,
         password,
-        expiresInMins: 30,
       });
 
       const { token, refreshToken, ...user } = response.data;
@@ -83,7 +82,6 @@ export class AuthService {
     try {
       const response = await privateApi.post("/users/refresh-token", {
         refreshToken: refreshTokenValue,
-        expiresInMins: 30,
       });
 
       const { token } = response.data;
@@ -94,11 +92,30 @@ export class AuthService {
         message: "Token renovado exitosamente",
       };
     } catch (error) {
-      console.error("Refresh token error: ", error);
       return {
         success: false,
         data: null,
         message: "Sesión expirada",
+        error: error,
+      };
+    }
+  }
+
+  //registro
+  static async register(userData) {
+    try {
+      const response = await privateApi.post("/users/register", userData);
+
+      return {
+        success: true,
+        data: response.data,
+        message: "Usuario registrado exitosamente",
+      };
+    } catch (error) {
+      return {
+        success: false,
+        data: null,
+        message: error.response?.data?.message || "Error en registro",
         error: error,
       };
     }

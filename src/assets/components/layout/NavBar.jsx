@@ -90,9 +90,9 @@ export const NavBar = () => {
                 className="py-2"
               >
                 <img
-                  src="https://placecats.com/150/60"
+                  src="/hero.png"
                   alt="Logo"
-                  className="h-10 object-cover rounded-md"
+                  className="h-10 object-contain rounded-md"
                 />
               </Link>
             </div>

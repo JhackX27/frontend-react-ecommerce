@@ -33,9 +33,9 @@ export const Footer = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
               <div>
                 <img
-                  src="https://placecats.com/100/30"
+                  src="/hero.png"
                   alt="Logo"
-                  className="h-10 object-cover"
+                  className="h-10 object-contain"
                 />
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
