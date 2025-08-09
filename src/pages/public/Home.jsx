@@ -1,25 +1,39 @@
+<<<<<<< HEAD
 // src/pages/public/Home.jsx - VERSIÓN CORREGIDA
+=======
+>>>>>>> rama-nueva
 import { useState } from "react";
 import { ProductGrid } from "../../assets/components/ui/ProductGrid.jsx";
 import { Footer } from "../../assets/components/layout/Footer.jsx";
 import { Loading } from "../../assets/components/common/Loading.jsx";
 import { ErrorMessage } from "../../assets/components/common/ErrorMessage.jsx";
 import { useProducts } from "../../hooks/useProducts.js";
+<<<<<<< HEAD
 import imgHero from "/t-shirt_hero.png";
+=======
+>>>>>>> rama-nueva
 
 export const Home = () => {
   const {
     products,
+<<<<<<< HEAD
     categories, // 👈 Usar categorías del hook, no hardcodeadas
+=======
+    categories,
+>>>>>>> rama-nueva
     loading,
     error,
     selectedCategory,
     setSelectedCategory,
+<<<<<<< HEAD
     searchProducts,
+=======
+>>>>>>> rama-nueva
     refreshProducts,
     clearError,
   } = useProducts();
 
+<<<<<<< HEAD
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleCategoryChange = (category) => {
@@ -60,6 +74,33 @@ export const Home = () => {
         </div>
 
         <div className="container mx-auto mt-4 px-4 max-iphone:mt-10">
+=======
+  const handleCategoryChange = (category) => {
+    
+    setSelectedCategory(category);
+    
+  };
+
+  return (
+    <div>
+      <div
+        className="/*propiedades moviles*/
+         bg-secondary-light relative pt-[184px]
+      
+         /*propiedades tablet pc*/
+         max-iphone:pt-[72px]
+      "
+      >
+        <div
+          className="bg h-[calc(100vh-184px)] 
+        max-iphone:h-[calc(100vh-72px)]"
+        ></div>
+        <div
+          className="container mx-auto mt-4 px-4
+        max-iphone:mt-10
+        "
+        >
+>>>>>>> rama-nueva
           {/* Error message */}
           {error && (
             <ErrorMessage
@@ -69,6 +110,7 @@ export const Home = () => {
             />
           )}
 
+<<<<<<< HEAD
           {/* Buscador */}
           <div className="mb-6">
             <div className="relative">
@@ -122,10 +164,29 @@ export const Home = () => {
                   key={categoryKey}
                 >
                   {categoryValue}
+=======
+          {/* filtros por categoría */}
+          <div className="flex gap-4 flex-wrap mb-8">
+            {categories.map((category) => {
+              const isSelected = selectedCategory === category;
+              return (
+                <button
+                  className={
+                    `font-Tertiary-Inter text-secondary-accent font-normal py-2 px-4 rounded-md active:scale-105 active:bg-primary-light transition-all ease-in cursor-pointer ` +
+                    (isSelected
+                      ? "bg-primary-light scale-105"
+                      : "bg-primary-accent")
+                  }
+                  onClick={() => handleCategoryChange(category)}
+                  key={category}
+                >
+                  {category}
+>>>>>>> rama-nueva
                 </button>
               );
             })}
           </div>
+<<<<<<< HEAD
 
           {/* Loading overlay para filtros */}
           {loading && products.length > 0 && (
@@ -152,6 +213,9 @@ export const Home = () => {
               </div>
             </div>
           )}
+=======
+          <ProductGrid products={products} />
+>>>>>>> rama-nueva
         </div>
       </div>
 

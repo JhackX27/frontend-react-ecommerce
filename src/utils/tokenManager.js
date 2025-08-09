@@ -21,6 +21,25 @@ export const tokenManager = {
   clearTokens() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+<<<<<<< HEAD
+=======
+    localStorage.removeItem("userData");
+  },
+
+  //guardar datos del usuario
+  setUserData(userData) {
+    localStorage.setItem("userData", JSON.stringify(userData));
+  },
+
+  //obtener datos del usuario guardados
+  getUserData() {
+    try {
+      const userData = localStorage.getItem("userData");
+      return userData ? JSON.parse(userData) : null;
+    } catch {
+      return null;
+    }
+>>>>>>> rama-nueva
   },
 
   //verificar si expiro

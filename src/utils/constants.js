@@ -1,11 +1,18 @@
 export const API_CONFIG = {
   BASE_URL:
+<<<<<<< HEAD
     process.env.NODE_ENV === "production"
       ? "https://localhost/api"
       : "https://dummyjson.com",
 
   TIMEOUT: 10000,
   ENABLE_LOGS: process.env.NODE_ENV === "development",
+=======
+    import.meta.env.VITE_API_BASE_URL || "https://api.jhackalzamora.com/api",
+  TIMEOUT: parseInt(import.meta.env.VITE_API_TIMEOUT) || 10000,
+  ENABLE_LOGS:
+    import.meta.env.VITE_ENABLE_LOGS === "true" || import.meta.env.DEV,
+>>>>>>> rama-nueva
 };
 
 export const ROUTES = {
@@ -31,9 +38,12 @@ export const HTTP_STATUS = {
   NOT_FOUND: 404,
   INTERNAL_SERVER_ERROR: 500,
 };
+<<<<<<< HEAD
 
 // Usuarios de prueba para DummyJSON
 export const DEMO_USERS = {
   ADMIN: { username: "kminchelle", password: "0lelplR" },
   USER: { username: "atuny0", password: "9uQFF1Lh" },
 };
+=======
+>>>>>>> rama-nueva

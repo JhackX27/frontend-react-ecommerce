@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 import React from "react";
 
+=======
+>>>>>>> rama-nueva
 export const ErrorMessage = ({ message, onRetry, onClose }) => {
   return (
     <div className="bg-state-danger/10 border border-state-danger/20 text-state-danger px-4 py-3 rounded-lg mb-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
+<<<<<<< HEAD
           <svg
             className="w-5 h-5 mr-2"
             fill="currentColor"
@@ -16,13 +20,20 @@ export const ErrorMessage = ({ message, onRetry, onClose }) => {
               clipRule="evenodd"
             />
           </svg>
+=======
+          <span className="font-bold text-state-danger mr-2">⚠</span>
+>>>>>>> rama-nueva
           <span className="font-Tertiary-Inter">{message}</span>
         </div>
         <div className="flex items-center gap-2">
           {onRetry && (
             <button
               onClick={onRetry}
+<<<<<<< HEAD
               className="text-xs bg-state-danger text-secondary-accent px-2 py-1 rounded hover:bg-state-danger/80 transition-colors"
+=======
+              className="text-xs bg-state-danger text-secondary-accent px-3 py-1 rounded hover:bg-state-danger/80 transition-colors font-Tertiary-Inter"
+>>>>>>> rama-nueva
             >
               Reintentar
             </button>
@@ -30,6 +41,7 @@ export const ErrorMessage = ({ message, onRetry, onClose }) => {
           {onClose && (
             <button
               onClick={onClose}
+<<<<<<< HEAD
               className="text-state-danger hover:text-state-danger/80"
             >
               <svg
@@ -45,6 +57,12 @@ export const ErrorMessage = ({ message, onRetry, onClose }) => {
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
+=======
+              className="text-state-danger hover:text-state-danger/80 font-bold text-lg px-2"
+              title="Cerrar"
+            >
+              ×
+>>>>>>> rama-nueva
             </button>
           )}
         </div>

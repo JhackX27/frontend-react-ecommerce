@@ -2,9 +2,18 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Plus, Minus, Trash } from "lucide-react";
+<<<<<<< HEAD
 import { removeFromCart, updateQuantity } from "../../features/cart/cartSlice";
 import { Footer } from "../../assets/components/layout/Footer";
 import { CheckoutModal } from "../../assets/components/ui/CheckoutModal";
+=======
+import {
+  removeFromCart,
+  updateQuantity,
+} from "../../features/cart/cartSlice.js";
+import { Footer } from "../../assets/components/layout/Footer.jsx";
+import { CheckoutModal } from "../../assets/components/ui/CheckoutModal.jsx";
+>>>>>>> rama-nueva
 
 export const CartPage = () => {
   const dispatch = useDispatch();
@@ -69,31 +78,35 @@ export const CartPage = () => {
           <div className="lg:col-span-2 shadow-md p-4 rounded-md bg-secondary-accent">
             {cartItems.map((item) => (
               <div
-                key={item.id}
+                key={item.idProduct}
                 className="flex items-center gap-4 py-4 border-b"
               >
-                <Link to={`/product/${item.id}`}>
+                <Link to={`/product/${item.idProduct}`}>
                   <img
-                    src={item.image}
-                    alt={item.title}
+                    src={
+                      item.image
+                        ? `https://api.jhackalzamora.com/${item.image}`
+                        : "https://via.placeholder.com/96"
+                    }
+                    alt={item.name}
                     className="w-24 h-24 object-cover rounded"
                   />
                 </Link>
                 <div className="flex-1">
                   <Link
-                    to={`/product/${item.id}`}
+                    to={`/product/${item.idProduct}`}
                     className="font-Tertiary-Inter font-semibold hover:text-blue-600"
                   >
-                    {item.title}
+                    {item.name}
                   </Link>
-                  <p className="text-gray-600">{item.price}</p>
+                  <p className="text-gray-600">${item.price}</p>
                   <div className="flex items-center gap-2 mt-2">
                     <button
                       className="p-1 rounded-full hover:bg-gray-100"
                       onClick={() =>
                         dispatch(
                           updateQuantity({
-                            id: item.id,
+                            idProduct: item.idProduct,
                             quantity: Math.max(0, item.quantity - 1),
                           })
                         )
@@ -109,7 +122,7 @@ export const CartPage = () => {
                       onClick={() =>
                         dispatch(
                           updateQuantity({
-                            id: item.id,
+                            idProduct: item.idProduct,
                             quantity: Math.max(0, item.quantity + 1),
                           })
                         )
@@ -119,7 +132,7 @@ export const CartPage = () => {
                     </button>
                     <div
                       className="ml-4 text-red-500 hover:text-red-700 cursor-pointer"
-                      onClick={() => dispatch(removeFromCart(item.id))}
+                      onClick={() => dispatch(removeFromCart(item.idProduct))}
                     >
                       <Trash size="20" />
                     </div>

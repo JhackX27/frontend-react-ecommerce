@@ -1,5 +1,5 @@
-# Guía de Estilos Tailwind - Ecommerce
 
+<<<<<<< HEAD
 --temporal
 en la 1.1.-
 
@@ -669,3 +669,5 @@ export const api = {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
 }
 ```
+=======
+>>>>>>> rama-nueva

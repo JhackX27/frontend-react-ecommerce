@@ -1,33 +1,50 @@
 import { useState, useMemo, useEffect } from "react";
+<<<<<<< HEAD
 import { ProductCart } from "./ProductCart.jsx";
+=======
+import { ProductCard } from "./ProductCard.jsx";
+>>>>>>> rama-nueva
 import { Pagination } from "./Pagination.jsx";
 
 export const ProductGrid = ({ products = [] }) => {
   const [currentPage, setCurrentPage] = useState(1);
+<<<<<<< HEAD
   const itemsPerPage = 6;
+=======
+  const itemsPerPage = 6; // productos por página
+>>>>>>> rama-nueva
 
-  // Calcular productos para la página actual
+  // Ccalcular productos para la página actual
   const paginatedProducts = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     return products.slice(startIndex, endIndex);
   }, [products, currentPage, itemsPerPage]);
 
-  // Calcular total de páginas
+  // calcular total de páginas
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
+<<<<<<< HEAD
   // Resetear a página 1 cuando cambien los productos filtrados
   useEffect(() => {
+=======
+  // resetear a página 1 cuando cambien los productos filtrados
+  useMemo(() => {
+>>>>>>> rama-nueva
     setCurrentPage(1);
   }, [products]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // Scroll suave hacia arriba al cambiar página
+    // scroll suave hacia arriba al cambiar página
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+<<<<<<< HEAD
   // Si no hay productos, mostrar mensaje
+=======
+  // si no hay productos, mostrar mensaje
+>>>>>>> rama-nueva
   if (!products || products.length === 0) {
     return (
       <div className="text-center py-12">
@@ -50,18 +67,25 @@ export const ProductGrid = ({ products = [] }) => {
       >
         {paginatedProducts.map((product) => {
           return (
-            <ProductCart
-              key={product.id}
-              id={product.id}
-              title={product.title}
+            <ProductCard
+              key={product.idProduct}
+              idProduct={product.idProduct}
+              name={product.name}
               price={product.price}
               description={product.description}
               image={
+<<<<<<< HEAD
                 product.images && product.images.length > 0
                   ? product.images[0]
                   : null
               }
               thumbnail={product.thumbnail}
+=======
+                product.image
+                  ? `https://api.jhackalzamora.com/${product.image}`
+                  : "https://via.placeholder.com/460"
+              }
+>>>>>>> rama-nueva
             />
           );
         })}

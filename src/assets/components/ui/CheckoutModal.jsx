@@ -122,12 +122,12 @@ export const CheckoutModal = ({ isOpen, onClose, cartItems, total }) => {
             <div className="space-y-3 mb-4">
               {cartItems.map((item) => (
                 <div
-                  key={item.id}
+                  key={item.idProduct}
                   className="flex justify-between items-center py-2 border-b border-gray-100"
                 >
                   <div className="flex-1">
                     <h4 className="font-Tertiary-Inter text-sm font-medium text-primary-dark">
-                      {item.title}
+                      {item.name}
                     </h4>
                     <p className="font-Tertiary-Inter text-xs text-gray-500">
                       Quantity: {item.quantity}
@@ -138,7 +138,7 @@ export const CheckoutModal = ({ isOpen, onClose, cartItems, total }) => {
                       ${(item.price * item.quantity).toFixed(2)}
                     </p>
                     <p className="font-Tertiary-Inter text-xs text-gray-500">
-                      ${item.price.toFixed(2)} each
+                      ${item.price} each
                     </p>
                   </div>
                 </div>
